@@ -47,7 +47,7 @@ export function MapaCobertura() {
       <div className="relative">
         <svg
           viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-          className="w-full rounded-sm bg-massape"
+          className="w-full overflow-hidden rounded-lg bg-mata shadow-md"
           role="img"
           aria-label="Mapa de cobertura da Semear no Nordeste"
         >
@@ -71,7 +71,7 @@ export function MapaCobertura() {
                   r={ativo || destacado ? 10 : 7}
                   className={
                     destacado
-                      ? "fill-ferrugem"
+                      ? "fill-dourado"
                       : "fill-cana"
                   }
                 />
@@ -80,7 +80,7 @@ export function MapaCobertura() {
                   cy={y}
                   r={ativo || destacado ? 16 : 12}
                   className={
-                    destacado ? "fill-ferrugem/25" : "fill-cana/25"
+                    destacado ? "fill-dourado/25" : "fill-cana/25"
                   }
                 />
                 <text
@@ -141,17 +141,17 @@ export function MapaCobertura() {
             setSelecao(null);
           }}
           placeholder="Ex.: Arapiraca, Garanhuns, Sobral..."
-          className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+          className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
           autoComplete="off"
         />
 
         {sugestoes.length > 0 && (
-          <ul className="mt-2 divide-y divide-massape/10 border border-massape/20 bg-white">
+          <ul className="mt-2 divide-y divide-mata/10 rounded-md border border-mata/20 bg-white shadow-sm">
             {sugestoes.map((m) => (
               <li key={`${m.nome}-${m.uf}`}>
                 <button
                   type="button"
-                  className="w-full px-4 py-3 text-left hover:bg-osso focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+                  className="w-full px-4 py-3 text-left hover:bg-osso focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
                   onClick={() => {
                     setSelecao({
                       tipo: "municipio",
@@ -171,8 +171,8 @@ export function MapaCobertura() {
         )}
 
         {resultado && (
-          <div className="mt-6 border-2 border-ferrugem bg-white p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-ferrugem">
+          <div className="mt-6 rounded-lg border-2 border-mata bg-white p-5 shadow-md">
+            <p className="inline-block rounded bg-mata px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-dourado">
               Unidade mais próxima
             </p>
             <p className="mt-1 font-display text-3xl font-bold">
@@ -191,7 +191,7 @@ export function MapaCobertura() {
               href={`https://wa.me/${WHATSAPP_COMERCIAL}?text=${encodeURIComponent(
                 `Olá! Vim pelo site e quero falar com a unidade ${resultado.unidade.nome}.`
               )}`}
-              className="mt-4 inline-block bg-cana px-5 py-3 font-semibold text-massape hover:bg-cana/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ferrugem"
+              className="mt-4 inline-block rounded-md bg-cana px-5 py-3 font-semibold text-mata shadow-sm hover:bg-cana/90 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata"
             >
               Chamar no WhatsApp
             </a>

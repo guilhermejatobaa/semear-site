@@ -98,17 +98,31 @@ busca por município que consulta um JSON local. Não integre Google Maps API.
 
 ### Paleta
 
-Nada de verde corporativo de agro. A referência é o material da região, não o estoque.
+**Atualizado (2026-08-12):** a paleta original deste documento (verde-oliva/massapê marrom)
+foi descartada a pedido do Guilherme — no ar, o site não lembrava as cores da Semear.
+A paleta atual vem de duas fontes reais, não de invenção:
+
+1. `brand-source/SEMEAR-LOGO-APROVADO.pdf` — a logo aprovada da empresa. As cores abaixo
+   foram extraídas dos valores RGB exatos dos vetores do PDF (ver processo em
+   `public/logo/`), não escolhidas visualmente.
+2. As cores de fato usadas em produção em semear-br.com (heading `#00663A`, ícones
+   `#779643`, hover/destaque `#B4E75D`, fundo de seção `#F8FFEC`).
 
 ```
---cana        #7A9A3B   verde-cana, mais amarelado e específico que verde agro
---massape     #2C2620   solo escuro do tabuleiro — fundo das seções densas
---osso        #F4F1E8   off-white de papel de receituário — fundo padrão
---ferrugem    #B4521E   acento, usado só em ação e destaque de dado
---grafite     #4A4A44   texto secundário
+--cana        #73C82C   verde-lima da logo — pontos do mapa, botões de ação sobre fundo escuro
+--mata        #0B3D24   verde bem escuro — fundo das seções densas e texto padrão
+--osso        #F3F8EC   off-white com leve viés verde — fundo padrão
+--dourado     #F9A70D   o sol da logo — acento quente, usado sobre fundo escuro/mata
+--grafite     #42513F   texto secundário
 ```
 
-Fundo padrão claro. Seções escuras em `--massape` marcam mudança de assunto, não decoração.
+Fundo padrão claro. Seções escuras em `--mata` marcam mudança de assunto, não decoração.
+
+**Regra de contraste:** `--cana` e `--dourado` são claros (luminância alta) — funcionam bem
+como preenchimento sobre `--mata` (fundo escuro) ou como fundo de botão com texto `--mata`
+em cima. Não usar como cor de texto nem borda fina sobre `--osso`/branco — o contraste fica
+abaixo de WCAG AA (~1.9:1). Testado com a fórmula de contraste relativo do WCAG; ver commit
+que introduziu esta paleta para os pares verificados.
 
 ### Tipografia
 
@@ -184,6 +198,8 @@ components/
 content/
   unidades.json            as nove unidades, com lat/lng e municípios atendidos
   linhas.json              as sete linhas de produto
+public/logo/               logo oficial extraída de brand-source/SEMEAR-LOGO-APROVADO.pdf
+                            (semear-color.svg para fundo claro, semear-branco.svg para --mata)
 ```
 
 ---

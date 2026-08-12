@@ -99,7 +99,7 @@ export function ConsultoriaForm() {
 
   if (status === "sucesso") {
     return (
-      <div className="border-2 border-cana bg-white p-6">
+      <div className="rounded-lg border-2 border-mata bg-white p-6 shadow-md">
         <p className="font-display text-2xl font-bold">Recebemos seu pedido</p>
         <p className="mt-2 text-grafite">
           Um consultor da Semear entra em contato pelo WhatsApp{" "}
@@ -116,7 +116,7 @@ export function ConsultoriaForm() {
           <div
             key={i}
             className={`h-1.5 flex-1 rounded-full ${
-              i <= etapa ? "bg-ferrugem" : "bg-massape/15"
+              i <= etapa ? "bg-mata" : "bg-mata/15"
             }`}
           />
         ))}
@@ -137,7 +137,7 @@ export function ConsultoriaForm() {
               required
               value={dados.nome}
               onChange={(e) => atualizar("nome", e.target.value)}
-              className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+              className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
             />
           </div>
           <div>
@@ -151,7 +151,7 @@ export function ConsultoriaForm() {
               placeholder="(82) 99999-9999"
               value={dados.whatsapp}
               onChange={(e) => atualizar("whatsapp", e.target.value)}
-              className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+              className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
             />
           </div>
         </div>
@@ -169,7 +169,7 @@ export function ConsultoriaForm() {
             value={dados.municipio}
             onChange={(e) => atualizar("municipio", e.target.value)}
             placeholder="Digite o município"
-            className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+            className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
           />
           <datalist id="lista-municipios">
             {municipios.map((m) => (
@@ -188,7 +188,7 @@ export function ConsultoriaForm() {
             {CULTURAS.map((c) => (
               <label
                 key={c}
-                className="flex items-center gap-3 border border-massape/20 px-4 py-3 has-[:checked]:border-ferrugem has-[:checked]:bg-ferrugem/5"
+                className="flex items-center gap-3 rounded-md border border-mata/20 px-4 py-3 has-[:checked]:border-mata has-[:checked]:bg-dourado/10"
               >
                 <input
                   type="radio"
@@ -196,7 +196,7 @@ export function ConsultoriaForm() {
                   value={c}
                   checked={dados.cultura === c}
                   onChange={(e) => atualizar("cultura", e.target.value)}
-                  className="accent-ferrugem"
+                  className="accent-mata"
                 />
                 {c}
               </label>
@@ -214,7 +214,7 @@ export function ConsultoriaForm() {
             {FAIXAS_AREA.map((f) => (
               <label
                 key={f}
-                className="flex items-center gap-3 border border-massape/20 px-4 py-3 has-[:checked]:border-ferrugem has-[:checked]:bg-ferrugem/5"
+                className="flex items-center gap-3 rounded-md border border-mata/20 px-4 py-3 has-[:checked]:border-mata has-[:checked]:bg-dourado/10"
               >
                 <input
                   type="radio"
@@ -222,7 +222,7 @@ export function ConsultoriaForm() {
                   value={f}
                   checked={dados.areaHectares === f}
                   onChange={(e) => atualizar("areaHectares", e.target.value)}
-                  className="accent-ferrugem"
+                  className="accent-mata"
                 />
                 {f}
               </label>
@@ -242,7 +242,7 @@ export function ConsultoriaForm() {
             placeholder="Ex.: início da próxima safra, agora, ainda não sei"
             value={dados.epoca}
             onChange={(e) => atualizar("epoca", e.target.value)}
-            className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+            className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
           />
         </div>
       )}
@@ -257,13 +257,13 @@ export function ConsultoriaForm() {
             rows={4}
             value={dados.observacao}
             onChange={(e) => atualizar("observacao", e.target.value)}
-            className="mt-2 w-full border border-massape/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+            className="mt-2 w-full rounded-md border border-mata/30 bg-white px-4 py-3 text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
           />
         </div>
       )}
 
       {erro && (
-        <p role="alert" className="mt-4 border border-ferrugem bg-ferrugem/10 px-4 py-3 text-sm text-ferrugem">
+        <p role="alert" className="mt-4 rounded-md border border-mata bg-dourado/10 px-4 py-3 text-sm text-mata">
           {erro}
         </p>
       )}
@@ -273,7 +273,7 @@ export function ConsultoriaForm() {
           <button
             type="button"
             onClick={voltar}
-            className="px-4 py-3 font-semibold text-grafite hover:text-massape focus-visible:outline focus-visible:outline-2 focus-visible:outline-ferrugem"
+            className="px-4 py-3 font-semibold text-grafite hover:text-mata focus-visible:outline focus-visible:outline-2 focus-visible:outline-mata"
           >
             Voltar
           </button>
@@ -285,7 +285,7 @@ export function ConsultoriaForm() {
           <button
             type="button"
             onClick={avancar}
-            className="bg-ferrugem px-6 py-3 font-semibold text-osso hover:bg-ferrugem/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ferrugem"
+            className="rounded-md bg-dourado px-6 py-3 font-semibold text-mata shadow-sm hover:bg-dourado/90 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata"
           >
             Continuar
           </button>
@@ -293,7 +293,7 @@ export function ConsultoriaForm() {
           <button
             type="submit"
             disabled={status === "enviando"}
-            className="bg-ferrugem px-6 py-3 font-semibold text-osso hover:bg-ferrugem/90 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ferrugem"
+            className="rounded-md bg-dourado px-6 py-3 font-semibold text-mata shadow-sm hover:bg-dourado/90 hover:shadow disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata"
           >
             {status === "enviando" ? "Enviando..." : "Falar com um consultor"}
           </button>

@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --cana: #7a9a3b;
-  --massape: #2c2620;
-  --osso: #f4f1e8;
-  --ferrugem: #b4521e;
-  --grafite: #4a4a44;
+  /* Cores extraídas da marca aprovada (brand-source/SEMEAR-LOGO-APROVADO.pdf)
+     e do site atual semear-br.com — não são uma paleta inventada. */
+  --cana: #73c82c;
+  --mata: #0b3d24;
+  --osso: #f3f8ec;
+  --dourado: #f9a70d;
+  --grafite: #42513f;
 
   --background: var(--osso);
-  --foreground: var(--massape);
+  --foreground: var(--mata);
 }
 
 @theme inline {
   --color-cana: var(--cana);
-  --color-massape: var(--massape);
+  --color-mata: var(--mata);
   --color-osso: var(--osso);
-  --color-ferrugem: var(--ferrugem);
+  --color-dourado: var(--dourado);
   --color-grafite: var(--grafite);
   --color-background: var(--background);
   --color-foreground: var(--foreground);

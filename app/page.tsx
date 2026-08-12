@@ -19,7 +19,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-massape text-osso">
+      <section className="bg-mata text-osso">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="grid gap-10 sm:grid-cols-2">
             <div>
@@ -49,7 +49,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-6xl px-4 py-16">
         <h2 className="font-display text-2xl font-bold">Linhas que atendemos</h2>
-        <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 border-t border-massape/15 pt-6 sm:grid-cols-3">
+        <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 border-t border-mata/15 pt-6 sm:grid-cols-3">
           {linhas.map((linha) => (
             <li
               key={linha.slug}
@@ -79,12 +79,12 @@ export default function Home() {
 
       <section className="bg-cana">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-          <h2 className="font-display text-3xl font-bold text-massape">
+          <h2 className="font-display text-3xl font-bold text-mata">
             Fale com um consultor da sua região
           </h2>
           <Link
             href="/consultoria"
-            className="mt-6 inline-block bg-massape px-8 py-4 text-lg font-semibold text-osso hover:bg-massape/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-osso"
+            className="mt-6 inline-block rounded-md bg-mata px-8 py-4 text-lg font-semibold text-osso shadow-sm hover:bg-mata/90 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-osso"
           >
             Falar com um consultor
           </Link>

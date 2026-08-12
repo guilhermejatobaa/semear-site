@@ -18,7 +18,7 @@ export default function UnidadesPage() {
         WhatsApp comercial — diga qual unidade fica mais perto de você.
       </p>
 
-      <ul className="mt-10 divide-y divide-massape/15 border-t border-b border-massape/15">
+      <ul className="mt-10 divide-y divide-mata/15 border-t border-b border-mata/15">
         {unidades.map((unidade) => (
           <li key={unidade.slug} className="py-6 sm:flex sm:items-start sm:justify-between sm:gap-6">
             <div>
@@ -36,7 +36,7 @@ export default function UnidadesPage() {
               href={`https://wa.me/${WHATSAPP_COMERCIAL}?text=${encodeURIComponent(
                 `Olá! Vim pelo site e quero falar com a unidade ${unidade.nome}.`
               )}`}
-              className="mt-4 inline-block shrink-0 bg-cana px-5 py-3 font-semibold text-massape hover:bg-cana/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ferrugem sm:mt-0"
+              className="mt-4 inline-block shrink-0 rounded-md bg-cana px-5 py-3 font-semibold text-mata shadow-sm hover:bg-cana/90 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata sm:mt-0"
             >
               WhatsApp
             </a>

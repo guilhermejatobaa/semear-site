@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto_Condensed, Inter } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 
@@ -40,27 +41,38 @@ export const viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={`${condensed.variable} ${corpo.variable} h-full`}>
-      <body className="min-h-full flex flex-col font-sans text-[17px] text-massape bg-osso antialiased">
+      <body className="min-h-full flex flex-col font-sans text-[17px] text-mata bg-osso antialiased">
         <a
           href="#conteudo"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-ferrugem focus:text-osso focus:px-4 focus:py-2"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-dourado focus:text-mata focus:px-4 focus:py-2"
         >
           Pular para o conteúdo
         </a>
-        <header className="border-b border-massape/10 bg-osso">
-          <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-            <Link href="/" className="font-display text-2xl font-bold tracking-tight">
-              SEMEAR
+        <header className="sticky top-0 z-40 bg-osso/95 backdrop-blur shadow-sm">
+          <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:py-4">
+            <Link href="/" className="shrink-0">
+              <Image
+                src="/logo/semear-color.svg"
+                alt="Semear Agronegócios"
+                width={228}
+                height={63}
+                priority
+                className="h-7 w-auto sm:h-10"
+              />
             </Link>
-            <div className="flex items-center gap-6 text-sm">
-              <Link href="/unidades" className="hover:text-ferrugem">
+            <div className="flex items-center gap-3 text-sm sm:gap-6">
+              <Link
+                href="/unidades"
+                className="whitespace-nowrap hover:underline decoration-dourado decoration-2 underline-offset-4"
+              >
                 Unidades
               </Link>
               <Link
                 href="/consultoria"
-                className="bg-ferrugem px-4 py-2 text-osso font-semibold hover:bg-ferrugem/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ferrugem"
+                className="whitespace-nowrap rounded-md bg-dourado px-3 py-2 text-sm font-semibold text-mata shadow-sm hover:bg-dourado/90 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata sm:px-4 sm:text-base"
               >
-                Falar com um consultor
+                <span className="sm:hidden">Consultor</span>
+                <span className="hidden sm:inline">Falar com um consultor</span>
               </Link>
             </div>
           </nav>
@@ -68,10 +80,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="conteudo" className="flex-1">
           {children}
         </main>
-        <footer className="bg-massape text-osso">
+        <footer className="bg-mata text-osso">
           <div className="mx-auto max-w-6xl px-4 py-10 text-sm">
-            <p className="font-display text-xl font-bold">SEMEAR AGRONEGÓCIOS</p>
-            <p className="mt-2 text-osso/70">
+            <Image
+              src="/logo/semear-branco.svg"
+              alt="Semear Agronegócios"
+              width={228}
+              height={63}
+              className="h-10 w-auto"
+            />
+            <p className="mt-4 text-osso/70">
               Fundada em 2007 em Maceió/AL. Nove unidades em seis estados do Nordeste.
             </p>
             <p className="mt-4">
