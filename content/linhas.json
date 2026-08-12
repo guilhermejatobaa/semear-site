@@ -1,0 +1,9 @@
+[
+  { "slug": "sementes", "nome": "Sementes" },
+  { "slug": "fertilizantes", "nome": "Fertilizantes" },
+  { "slug": "herbicidas", "nome": "Herbicidas" },
+  { "slug": "fungicidas", "nome": "Fungicidas" },
+  { "slug": "inseticidas", "nome": "Inseticidas" },
+  { "slug": "medicamentos-veterinarios", "nome": "Medicamentos veterinários" },
+  { "slug": "ferramentas-utensilios", "nome": "Ferramentas e utensílios" }
+]

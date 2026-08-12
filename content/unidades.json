@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "matriz",
+    "nome": "Matriz",
+    "cidade": "Maceió",
+    "uf": "AL",
+    "endereco": "Av. Durval de Góes Monteiro, 5798, Tabuleiro dos Martins",
+    "lat": -9.6019,
+    "lng": -35.7614
+  },
+  {
+    "slug": "arapiraca",
+    "nome": "Arapiraca",
+    "cidade": "Arapiraca",
+    "uf": "AL",
+    "endereco": "Av. Gov. Semeão Lamenha Filho, 435",
+    "lat": -9.7519,
+    "lng": -36.6613
+  },
+  {
+    "slug": "itabaiana",
+    "nome": "Itabaiana",
+    "cidade": "Itabaiana",
+    "uf": "SE",
+    "endereco": "Av. Manoel Antonio dos Santos, 839A",
+    "lat": -10.6849,
+    "lng": -37.4258
+  },
+  {
+    "slug": "carpina",
+    "nome": "Carpina",
+    "cidade": "Carpina",
+    "uf": "PE",
+    "endereco": "Av. Cons. João Alfredo, 330",
+    "lat": -7.8514,
+    "lng": -35.2429
+  },
+  {
+    "slug": "limoeiro",
+    "nome": "Limoeiro",
+    "cidade": "Limoeiro do Norte",
+    "uf": "CE",
+    "endereco": "R. Cel. Clovis Alexandrino, 1726A",
+    "lat": -5.1489,
+    "lng": -38.0997
+  },
+  {
+    "slug": "mossoro",
+    "nome": "Mossoró",
+    "cidade": "Mossoró",
+    "uf": "RN",
+    "endereco": "R. Dr. João Marcelino, 1021",
+    "lat": -5.1875,
+    "lng": -37.3441
+  },
+  {
+    "slug": "imperatriz",
+    "nome": "Imperatriz",
+    "cidade": "Imperatriz",
+    "uf": "MA",
+    "endereco": "Rod. BR 010, 518",
+    "lat": -5.5264,
+    "lng": -47.4917
+  },
+  {
+    "slug": "paripiranga",
+    "nome": "Paripiranga",
+    "cidade": "Paripiranga",
+    "uf": "BA",
+    "endereco": "Pç. Dona Maria Angélica, 45",
+    "lat": -10.6900,
+    "lng": -37.8600
+  },
+  {
+    "slug": "rio-real",
+    "nome": "Rio Real",
+    "cidade": "Rio Real",
+    "uf": "BA",
+    "endereco": "R. Joaquim Mattos, 69",
+    "lat": -11.4692,
+    "lng": -38.0114
+  }
+]
