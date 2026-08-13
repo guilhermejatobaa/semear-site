@@ -5,6 +5,7 @@
      e do site atual semear-br.com — não são uma paleta inventada. */
   --cana: #73c82c;
   --mata: #0b3d24;
+  --mata-fundo: #072418;
   --osso: #f3f8ec;
   --dourado: #f9a70d;
   --grafite: #42513f;
@@ -16,18 +17,61 @@
 @theme inline {
   --color-cana: var(--cana);
   --color-mata: var(--mata);
+  --color-mata-fundo: var(--mata-fundo);
   --color-osso: var(--osso);
   --color-dourado: var(--dourado);
   --color-grafite: var(--grafite);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-display: var(--font-condensed);
+  --font-display: var(--font-archivo);
   --font-sans: var(--font-corpo);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sem cantos arredondados nem sombra em nenhum lugar do site — regra do
+   brief. As únicas curvas são as do próprio logo. Separação é sempre
+   por borda 1px ou troca de fundo. */
+* {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+@keyframes mapa-ponto-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mapa-onda {
+  0% {
+    r: 8;
+    opacity: 0.55;
+  }
+  100% {
+    r: 44;
+    opacity: 0;
+  }
+}
+
+@keyframes revela-sobe {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import unidades from "@/content/unidades.json";
+import Link from "next/link";
+import { UnidadesLista } from "./unidades-lista";
 
 export const metadata: Metadata = {
   title: "Unidades",
@@ -7,42 +8,38 @@ export const metadata: Metadata = {
     "As nove unidades da Semear Agronegócios em Alagoas, Sergipe, Pernambuco, Ceará, Rio Grande do Norte, Maranhão e Bahia — endereço e WhatsApp de cada uma.",
 };
 
-const WHATSAPP_COMERCIAL = "558233281831";
-
 export default function UnidadesPage() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="font-display text-4xl font-bold">Unidades</h1>
-      <p className="mt-3 max-w-2xl text-grafite">
-        Nove unidades em seis estados do Nordeste. Todas atendem pelo mesmo
-        WhatsApp comercial — diga qual unidade fica mais perto de você.
-      </p>
+    <>
+      <section className="bg-mata px-4 py-14 text-osso sm:px-12 sm:py-16">
+        <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-dourado uppercase">
+          Unidades
+        </p>
+        <h1 className="mt-3.5 font-display text-[52px]/[.95] font-extrabold tracking-[-.04em] sm:text-[76px]/[.95]">
+          Nove endereços,
+          <br />
+          sete estados.
+        </h1>
+        <p className="mt-4 max-w-[56ch] text-[16px]/relaxed text-osso/78 sm:mt-4.5 sm:text-[18px]">
+          Todas são lojas próprias com estoque e equipe técnica — não
+          representantes. Filtre por estado ou passe o mouse num endereço
+          para vê-lo no mapa.
+        </p>
+      </section>
 
-      <ul className="mt-10 divide-y divide-mata/15 border-t border-b border-mata/15">
-        {unidades.map((unidade) => (
-          <li key={unidade.slug} className="py-6 sm:flex sm:items-start sm:justify-between sm:gap-6">
-            <div>
-              <h2 className="font-display text-2xl font-bold">
-                {unidade.nome === unidade.cidade
-                  ? unidade.cidade
-                  : `${unidade.nome} — ${unidade.cidade}`}
-                <span className="ml-2 text-base font-normal text-grafite">
-                  /{unidade.uf}
-                </span>
-              </h2>
-              <p className="mt-1 text-grafite">{unidade.endereco}</p>
-            </div>
-            <a
-              href={`https://wa.me/${WHATSAPP_COMERCIAL}?text=${encodeURIComponent(
-                `Olá! Vim pelo site e quero falar com a unidade ${unidade.nome}.`
-              )}`}
-              className="mt-4 inline-block shrink-0 rounded-md bg-cana px-5 py-3 font-semibold text-mata shadow-sm hover:bg-cana/90 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mata sm:mt-0"
-            >
-              WhatsApp
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
+      <UnidadesLista />
+
+      <section className="flex flex-col items-start gap-6 bg-cana px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-12 sm:py-14">
+        <h2 className="max-w-[26ch] font-display text-[30px]/[1] font-extrabold tracking-[-.03em] text-mata sm:text-[42px]">
+          Não achou a sua região? Fale com a matriz.
+        </h2>
+        <Link
+          href="/consultoria"
+          className="shrink-0 bg-mata px-7 py-4 font-display text-[13px] font-extrabold tracking-[.14em] text-osso uppercase sm:px-8 sm:py-5 sm:text-[14px]"
+        >
+          Falar com um consultor
+        </Link>
+      </section>
+    </>
   );
 }

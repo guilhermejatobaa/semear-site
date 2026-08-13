@@ -1,95 +1,235 @@
 import Link from "next/link";
-import { MapaCobertura } from "@/components/mapa-cobertura/mapa-cobertura";
+import { BuscaCobertura } from "@/components/mapa-cobertura/busca-cobertura";
+import { TrilhaUnidades } from "@/components/mapa-cobertura/trilha-unidades";
+import { CulturasHover } from "@/components/culturas-hover";
+import { Contador } from "@/components/contador";
+import { Revela } from "@/components/revela";
 import { Pendente } from "@/components/pendente";
-import linhas from "@/content/linhas.json";
+import { PendenteFoto } from "@/components/pendente-foto";
+import { BarraFixaMobile } from "@/components/barra-fixa-mobile";
+
+const ETAPAS = [
+  {
+    n: "01",
+    t: "Você diz o município",
+    d: "O site aponta a unidade que atende a sua região e abre o WhatsApp dela.",
+  },
+  {
+    n: "02",
+    t: "O consultor liga",
+    d: "Cultura, área e época de manejo — antes de qualquer cotação.",
+  },
+  {
+    n: "03",
+    t: "Visita na propriedade",
+    d: "Recomendação feita na sua área, com o que está no chão.",
+  },
+  {
+    n: "04",
+    t: "Acompanhamento na safra",
+    d: "O mesmo consultor volta para ver resultado, não só para vender de novo.",
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-10 pb-16">
-        <h1 className="font-display text-4xl font-bold leading-tight sm:text-5xl">
-          Nove unidades. Seis estados. Um consultor perto da sua porteira.
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg text-grafite">
-          Digite seu município e veja qual unidade da Semear atende sua região —
-          com telefone direto e WhatsApp.
-        </p>
-        <div className="mt-8">
-          <MapaCobertura />
+      <BuscaCobertura />
+
+      <div className="grid grid-cols-2 bg-dourado text-mata sm:grid-cols-4">
+        <div className="border-r border-mata/25 px-6 py-9 sm:px-10">
+          <Contador ate={9} rotulo="Unidades próprias" />
+        </div>
+        <div className="border-r-0 px-6 py-9 sm:border-r sm:border-mata/25 sm:px-10">
+          <Contador ate={7} rotulo="Estados atendidos" />
+        </div>
+        <div className="border-t border-r border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
+          <Contador ate={7} rotulo="Linhas de insumo" />
+        </div>
+        <div className="border-t border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
+          <Contador ate={19} rotulo="Anos de operação" />
+        </div>
+      </div>
+
+      <section className="bg-mata-fundo px-4 py-14 sm:px-12 sm:py-[76px]">
+        <div className="mx-auto flex max-w-[1680px] flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-dourado uppercase">
+              As nove unidades
+            </p>
+            <h2 className="mt-3 font-display text-[32px]/none font-extrabold tracking-[-.03em] text-osso sm:text-[52px]/none">
+              Escolha a sua. O mapa acompanha.
+            </h2>
+          </div>
+          <Link
+            href="/unidades"
+            className="shrink-0 border-b-2 border-cana pb-1 font-display text-[12px] font-extrabold tracking-[.16em] text-cana uppercase"
+          >
+            Página de unidades →
+          </Link>
+        </div>
+        <div className="mx-auto mt-10 max-w-[1680px] text-osso">
+          <TrilhaUnidades />
         </div>
       </section>
 
-      <section className="bg-mata text-osso">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <div className="grid gap-10 sm:grid-cols-2">
+      <section id="consultoria" className="bg-osso px-4 py-14 sm:px-12 sm:py-20">
+        <div className="mx-auto max-w-[1680px]">
+          <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
+            Como funciona a consultoria
+          </p>
+          <h2 className="mt-3 max-w-[22ch] font-display text-[34px]/[1] font-extrabold tracking-[-.03em] sm:text-[56px]/[1] sm:tracking-[-.04em]">
+            Recomendação de campo, não de balcão.
+          </h2>
+          <div className="mt-10 flex flex-col gap-5 sm:mt-12 sm:grid sm:grid-cols-4 sm:gap-0 sm:border-t-2 sm:border-mata">
+            {ETAPAS.map((e) => (
+              <Revela key={e.n} className="border-t-2 border-mata pt-4 sm:border-t-0 sm:border-r sm:border-mata/14 sm:pt-7 sm:pr-7">
+                <p className="-mt-0 inline-block bg-cana px-2.5 py-1.5 font-display text-[12px] font-extrabold tracking-[.12em] text-mata sm:-mt-[38px] sm:text-[14px]">
+                  {e.n}
+                </p>
+                <h3 className="mt-3 font-display text-[21px]/[1.15] font-extrabold tracking-[-.02em] sm:mt-[22px] sm:text-[27px]/[1.1]">
+                  {e.t}
+                </h3>
+                <p className="mt-2 text-[15px]/relaxed text-grafite sm:mt-2.5 sm:pr-6 sm:text-[16px]">
+                  {e.d}
+                </p>
+              </Revela>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="relative h-[300px] sm:h-[520px]">
+        <PendenteFoto
+          legenda="Foto larga: consultor técnico com produtor na propriedade"
+          className="absolute inset-0"
+          posicao="topo"
+        />
+        <div
+          className="pointer-events-none absolute inset-0 flex items-end p-6 sm:p-12"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(7,36,24,.9) 0%, rgba(7,36,24,.1) 60%)",
+          }}
+        >
+          <div>
+            <h2 className="max-w-[22ch] font-display text-[30px]/[.98] font-extrabold tracking-[-.03em] text-osso sm:text-[58px]/[.98] sm:tracking-[-.04em]">
+              O consultor não manda cotação. Ele vai até lá.
+            </h2>
+            <p className="mt-3 max-w-[52ch] text-[15px]/relaxed text-osso/80 sm:mt-4 sm:text-[17px]">
+              Manejo acompanhado safra a safra, com a mesma pessoa — do
+              plantio ao resultado.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <section id="culturas" className="scroll-mt-24 bg-mata px-4 py-14 sm:px-12 sm:py-20">
+        <div className="mx-auto max-w-[1680px]">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-display text-6xl font-bold text-cana">01</p>
-              <h2 className="mt-2 font-display text-2xl font-bold">
-                Tem gente perto de você
+              <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-dourado uppercase">
+                Culturas e criações
+              </p>
+              <h2 className="mt-3 font-display text-[32px]/none font-extrabold tracking-[-.03em] text-osso sm:text-[52px]/none">
+                O que a gente atende de verdade
               </h2>
-              <p className="mt-3 text-osso/80">
-                Nove unidades em seis estados do Nordeste — Alagoas, Sergipe,
-                Pernambuco, Ceará, Rio Grande do Norte, Maranhão e Bahia. Não é
-                um representante a quilômetros de distância.
+            </div>
+            <a
+              href="#culturas"
+              className="shrink-0 border-b-2 border-cana pb-1 font-display text-[12px] font-extrabold tracking-[.16em] text-cana uppercase"
+            >
+              Sete linhas de insumo →
+            </a>
+          </div>
+          <div className="mt-10 sm:mt-11">
+            <CulturasHover />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-osso px-4 py-14 sm:px-12 sm:py-[76px]">
+        <div className="mx-auto grid max-w-[1680px] grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-16">
+          <div>
+            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
+              Credenciais
+            </p>
+            <ul className="mt-6 divide-y divide-mata/14 border-t-2 border-mata">
+              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
+                <span className="h-2 w-2 shrink-0 bg-cana" />
+                Selo de excelência do CRMV-AL
+              </li>
+              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
+                <span className="h-2 w-2 shrink-0 bg-cana" />
+                Parceria com a Bayer
+              </li>
+              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
+                <span className="h-2 w-2 shrink-0 bg-cana" />
+                Presença na Citros Show e na Expoimp
+              </li>
+            </ul>
+            <div className="mt-6">
+              <Pendente>
+                Logos dos parceiros em vetor + autorização de uso
+              </Pendente>
+            </div>
+          </div>
+          <div>
+            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
+              Quem compra da Semear
+            </p>
+            <div className="mt-6 border border-dashed border-dourado bg-dourado/10 p-6">
+              <Pendente>
+                Três depoimentos com nome, município, cultura e foto — a
+                coletar com o comercial
+              </Pendente>
+              <p className="mt-4 text-[14px]/relaxed text-grafite">
+                É o bloco que mais pesa na comparação com a concorrência:
+                nenhuma distribuidora da região mostra produtor com nome e
+                cultura. Vale gravar em vídeo na próxima visita.
               </p>
             </div>
-            <div>
-              <p className="font-display text-6xl font-bold text-cana">02</p>
-              <h2 className="mt-2 font-display text-2xl font-bold">
-                Alguém vai até a propriedade
-              </h2>
-              <p className="mt-3 text-osso/80">
-                Consultor técnico acompanha manejo e resultado na sua área, não
-                só na venda. É recomendação de campo, não balcão.
-              </p>
+            <div className="mt-5 border border-dashed border-dourado bg-dourado/10 p-6">
+              <Pendente>
+                Notícias e galeria de eventos (Citros Show, Expoimp) —
+                definir se entra no MVP
+              </Pendente>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="font-display text-2xl font-bold">Linhas que atendemos</h2>
-        <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 border-t border-mata/15 pt-6 sm:grid-cols-3">
-          {linhas.map((linha) => (
-            <li
-              key={linha.slug}
-              className="text-sm font-semibold uppercase tracking-wide text-grafite"
-            >
-              {linha.nome}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <h2 className="font-display text-2xl font-bold">Credenciais</h2>
-        <ul className="mt-6 space-y-2 text-grafite">
-          <li>Selo de excelência do CRMV-AL</li>
-          <li>Parceria com a Bayer</li>
-          <li>Presença na Citros Show e na Expoimp</li>
-        </ul>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <h2 className="font-display text-2xl font-bold">O que os produtores dizem</h2>
-        <div className="mt-6">
-          <Pendente>Depoimento de cliente — a coletar com o comercial</Pendente>
-        </div>
-      </section>
-
-      <section className="bg-cana">
-        <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-          <h2 className="font-display text-3xl font-bold text-mata">
-            Fale com um consultor da sua região
+      <section className="grid grid-cols-1 bg-cana sm:grid-cols-2">
+        <div className="px-4 py-14 sm:px-12 sm:py-[72px]">
+          <h2 className="font-display text-[34px]/[.98] font-extrabold tracking-[-.035em] text-mata sm:text-[52px]/[.98] sm:tracking-[-.04em]">
+            Diga o município.
+            <br />A gente vai até lá.
           </h2>
-          <Link
-            href="/consultoria"
-            className="mt-6 inline-block rounded-md bg-mata px-8 py-4 text-lg font-semibold text-osso shadow-sm hover:bg-mata/90 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-osso"
-          >
-            Falar com um consultor
-          </Link>
+          <p className="mt-4 max-w-[40ch] text-[15px]/relaxed text-mata/80 sm:mt-[18px] sm:text-[17px]">
+            Dois campos obrigatórios: nome e WhatsApp. Cultura, área e época
+            de manejo ajudam o consultor a chegar preparado.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3.5 sm:mt-8">
+            <Link
+              href="/consultoria"
+              className="bg-mata px-7 py-4 font-display text-[13px] font-extrabold tracking-[.14em] text-osso uppercase hover:bg-mata-fundo sm:px-8 sm:py-5 sm:text-[14px]"
+            >
+              Falar com um consultor
+            </Link>
+            <a
+              href="https://wa.me/558233281831"
+              className="border-2 border-mata px-6 py-3.5 font-display text-[13px] font-extrabold tracking-[.14em] text-mata uppercase hover:bg-mata hover:text-cana sm:px-[30px] sm:py-[18px] sm:text-[14px]"
+            >
+              WhatsApp comercial
+            </a>
+          </div>
+        </div>
+        <div className="relative min-h-[260px] sm:min-h-[340px]">
+          <PendenteFoto legenda="Foto: equipe Semear na unidade" className="absolute inset-0" />
         </div>
       </section>
+
+      <BarraFixaMobile />
     </>
   );
 }

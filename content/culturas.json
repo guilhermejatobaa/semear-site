@@ -1,0 +1,7 @@
+[
+  { "slug": "cana", "nome": "Cana", "linha": "Sementes · fertilizantes · herbicidas" },
+  { "slug": "citros", "nome": "Citros", "linha": "Fungicidas · inseticidas · nutrição" },
+  { "slug": "pecuaria", "nome": "Pastagem e pecuária", "linha": "Sementes de forrageira · veterinários" },
+  { "slug": "coco", "nome": "Coco", "linha": "Fertilizantes · manejo de pragas" },
+  { "slug": "fruticultura", "nome": "Fruticultura", "linha": "Nutrição · defensivos · ferramentas" }
+]

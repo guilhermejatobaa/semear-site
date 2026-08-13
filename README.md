@@ -31,19 +31,25 @@ funcionando ponta a ponta, só o envio de e-mail fica pendente.
 
 ```
 app/
-  page.tsx                 home — mapa de cobertura + tese do site
-  unidades/page.tsx         as nove unidades
-  consultoria/page.tsx      formulário de consultoria
-  api/consultoria/route.ts  route handler, envia e-mail via Resend
-  institucional/, contato/, trabalhe-conosco/   rotas vazias (fora do escopo do MVP)
+  page.tsx                  home — mapa de cobertura, faixa de números, unidades, culturas
+  unidades/page.tsx          + unidades-lista.tsx — filtro por UF, mapa sincronizado por hover
+  consultoria/page.tsx       + consultoria-form.tsx — formulário real, POST ao route handler
+  institucional/page.tsx     história, linha do tempo, valores, trabalhe conosco
+  api/consultoria/route.ts   route handler, envia e-mail via Resend
+  contato/, trabalhe-conosco/   rotas vazias (fora do escopo do MVP, ver CLAUDE.md)
 components/
-  mapa-cobertura/           elemento assinatura — SVG estilizado + busca por município
-  pendente.tsx              marcador de conteúdo pendente (ver regra no CLAUDE.md)
+  cabecalho.tsx, rodape.tsx  header (barra de topo + mega-menu + hambúrguer) e footer
+  mapa-cobertura/            elemento assinatura — mapa real (d3-geo + topojson)
+  culturas-hover.tsx, contador.tsx, revela.tsx, barra-fixa-mobile.tsx
+  pendente.tsx, pendente-foto.tsx   marcadores de conteúdo/foto pendente (ver CLAUDE.md)
 content/
-  unidades.json             as nove unidades, com lat/lng
-  linhas.json               as sete linhas de produto
-  municipios.json           municípios usados na busca do mapa de cobertura
+  unidades.json, linhas.json, culturas.json, municipios.json
+public/
+  logo/                      logo oficial (extraída de brand-source/)
+  mapa/countries-110m.json   TopoJSON vendorizado — sem chamada a CDN em runtime
 ```
+
+Ver [CLAUDE.md](./CLAUDE.md) seção 7 para a árvore completa e o histórico de decisões.
 
 ## Deploy
 

@@ -5,10 +5,8 @@ type PayloadConsultoria = {
   nome: string;
   whatsapp: string;
   municipio: string;
+  area: string;
   cultura: string;
-  areaHectares: string;
-  epoca: string;
-  observacao: string;
 };
 
 const DESTINATARIO = process.env.CONSULTORIA_EMAIL_DESTINO;
@@ -48,7 +46,7 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(apiKey);
-  const { nome, whatsapp, municipio, cultura, areaHectares, epoca, observacao } = payload;
+  const { nome, whatsapp, municipio, area, cultura } = payload;
 
   const { error } = await resend.emails.send({
     from: REMETENTE,
@@ -59,9 +57,7 @@ export async function POST(request: Request) {
       `WhatsApp: ${whatsapp}`,
       `Município: ${municipio || "não informado"}`,
       `Cultura ou criação: ${cultura || "não informado"}`,
-      `Área aproximada: ${areaHectares || "não informado"}`,
-      `Época prevista: ${epoca || "não informado"}`,
-      `Observação: ${observacao || "-"}`,
+      `Área aproximada (ha): ${area || "não informado"}`,
     ].join("\n"),
   });
 
