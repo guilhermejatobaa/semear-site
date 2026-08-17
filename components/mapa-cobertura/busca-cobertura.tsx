@@ -121,7 +121,7 @@ export function BuscaCobertura() {
         </strong>
       </p>
 
-      <div className="mt-6 max-w-[520px] sm:mt-8">
+      <div className="relative mt-6 max-w-[520px] sm:mt-8">
         <div className="flex border-2 border-cana bg-mata-fundo/80 sm:bg-mata-fundo/82">
           <label htmlFor="busca-cobertura-hero" className="sr-only">
             Seu município
@@ -144,7 +144,7 @@ export function BuscaCobertura() {
         </div>
 
         {sugestoes.length > 0 && (
-          <ul className="border border-cana/40 bg-mata-fundo">
+          <ul className="absolute inset-x-0 top-full z-30 border border-t-0 border-cana/40 bg-mata-fundo">
             {sugestoes.map((m) => (
               <li key={`${m.nome}-${m.uf}`} className="border-t border-cana/16 first:border-t-0">
                 <button
@@ -193,7 +193,7 @@ export function BuscaCobertura() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-mata-fundo px-4 py-10 sm:h-[760px] sm:px-0 sm:py-0">
+    <section className="relative overflow-x-hidden bg-mata-fundo px-4 py-10 sm:h-[760px] sm:px-0 sm:py-0">
       <div className="hidden sm:absolute sm:top-0 sm:right-[-40px] sm:block sm:h-full sm:w-[900px]">
         <Mapa tema="ousado" mostrarUf={false} selecionada={resultado?.unidade.slug ?? null} onSelecionar={selecionarUnidade} />
       </div>
