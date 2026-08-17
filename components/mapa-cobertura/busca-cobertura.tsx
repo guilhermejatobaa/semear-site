@@ -2,12 +2,36 @@
 
 import { useEffect, useMemo, useState } from "react";
 import unidades from "@/content/unidades.json";
-import municipios from "@/content/municipios.json";
 import { unidadeMaisProxima } from "@/lib/distancia";
 import { normalizar } from "@/lib/normalizar";
 import { Mapa } from "./mapa";
 
 const WHATSAPP_COMERCIAL = "558233281831";
+
+type Municipio = { nome: string; uf: string; lat: number; lng: number };
+
+// Lista completa dos 1.794 municípios do Nordeste (9 estados) — servida de
+// public/ e buscada em runtime, mesmo padrão do TopoJSON do mapa (ver
+// mapa.tsx): evita empurrar ~120KB de dados para dentro do bundle JS da
+// home, que precisa ficar leve para o LCP em 4G.
+let municipiosCache: Municipio[] | null = null;
+let municipiosCachePromise: Promise<Municipio[]> | null = null;
+
+function carregarMunicipios() {
+  if (municipiosCache) return Promise.resolve(municipiosCache);
+  if (!municipiosCachePromise) {
+    municipiosCachePromise = fetch("/mapa/municipios-nordeste.json")
+      .then((r) => {
+        if (!r.ok) throw new Error("Falha ao carregar municípios");
+        return r.json();
+      })
+      .then((lista: Municipio[]) => {
+        municipiosCache = lista;
+        return lista;
+      });
+  }
+  return municipiosCachePromise;
+}
 
 const CIDADES_ROTACAO = [
   "Arapiraca",
@@ -30,6 +54,7 @@ export function BuscaCobertura() {
   const [indiceCidade, setIndiceCidade] = useState(0);
   const [busca, setBusca] = useState("");
   const [selecao, setSelecao] = useState<Selecao | null>(null);
+  const [municipios, setMunicipios] = useState<Municipio[]>(municipiosCache ?? []);
 
   useEffect(() => {
     const id = setInterval(
@@ -39,11 +64,18 @@ export function BuscaCobertura() {
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    if (municipios.length) return;
+    carregarMunicipios()
+      .then(setMunicipios)
+      .catch(() => {});
+  }, [municipios.length]);
+
   const sugestoes = useMemo(() => {
     if (selecao || normalizar(busca).length < 2) return [];
     const alvo = normalizar(busca);
     return municipios.filter((m) => normalizar(m.nome).includes(alvo)).slice(0, 5);
-  }, [busca, selecao]);
+  }, [busca, selecao, municipios]);
 
   const resultado = useMemo(() => {
     if (!selecao) return null;
@@ -54,7 +86,7 @@ export function BuscaCobertura() {
     return unidadeMaisProxima(selecao.lat, selecao.lng);
   }, [selecao]);
 
-  function selecionarMunicipio(m: (typeof municipios)[number]) {
+  function selecionarMunicipio(m: Municipio) {
     setBusca(`${m.nome}/${m.uf}`);
     setSelecao({ tipo: "municipio", nome: m.nome, uf: m.uf, lat: m.lat, lng: m.lng });
   }

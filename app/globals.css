@@ -63,6 +63,16 @@ body {
   }
 }
 
+@keyframes mapa-pisca {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
 @keyframes revela-sobe {
   from {
     opacity: 0;

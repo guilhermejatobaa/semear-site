@@ -146,7 +146,7 @@ export default function InstitucionalPage() {
         </p>
         <div className="mt-8 grid grid-cols-1 gap-8 border-t-2 border-cana/60 sm:mt-9 sm:grid-cols-3 sm:gap-0">
           {VALORES.map((v) => (
-            <div key={v.t} className="border-osso/14 pt-6 sm:border-r sm:pt-8 sm:pr-8 sm:last:border-r-0">
+            <div key={v.t} className="pt-6 sm:pt-8 sm:pr-8">
               <h3 className="font-display text-[24px]/[1.1] font-extrabold tracking-[-.025em] sm:text-[28px]">
                 {v.t}
               </h3>

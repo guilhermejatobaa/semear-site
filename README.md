@@ -43,10 +43,12 @@ components/
   culturas-hover.tsx, contador.tsx, revela.tsx, barra-fixa-mobile.tsx
   pendente.tsx, pendente-foto.tsx   marcadores de conteúdo/foto pendente (ver CLAUDE.md)
 content/
-  unidades.json, linhas.json, culturas.json, municipios.json
+  unidades.json, linhas.json, culturas.json
 public/
-  logo/                      logo oficial (extraída de brand-source/)
-  mapa/countries-110m.json   TopoJSON vendorizado — sem chamada a CDN em runtime
+  logo/                                logo oficial (extraída de brand-source/)
+  mapa/countries-110m.json             TopoJSON vendorizado — sem chamada a CDN em runtime
+  mapa/municipios-nordeste.json        os 1.794 municípios dos 9 estados do Nordeste (busca
+                                        de cobertura), buscado em runtime pelo mesmo motivo
 ```
 
 Ver [CLAUDE.md](./CLAUDE.md) seção 7 para a árvore completa e o histórico de decisões.

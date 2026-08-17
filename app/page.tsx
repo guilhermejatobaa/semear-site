@@ -83,7 +83,7 @@ export default function Home() {
           </h2>
           <div className="mt-10 flex flex-col gap-5 sm:mt-12 sm:grid sm:grid-cols-4 sm:gap-0 sm:border-t-2 sm:border-mata">
             {ETAPAS.map((e) => (
-              <Revela key={e.n} className="border-t-2 border-mata pt-4 sm:border-t-0 sm:border-r sm:border-mata/14 sm:pt-7 sm:pr-7">
+              <Revela key={e.n} className="border-t-2 border-mata pt-4 sm:border-t-0 sm:pt-7 sm:pr-7">
                 <p className="-mt-0 inline-block bg-cana px-2.5 py-1.5 font-display text-[12px] font-extrabold tracking-[.12em] text-mata sm:-mt-[38px] sm:text-[14px]">
                   {e.n}
                 </p>

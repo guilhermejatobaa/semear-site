@@ -119,6 +119,24 @@ entrada animada e seleção via clique/teclado. Ver `components/mapa-cobertura/m
 protótipo de referência `mapa-nordeste.html` (histórico do commit). Não integre Google Maps
 API — a geometria é local.
 
+**Atualizado (2026-08-17):** a busca por município cobre os 1.794 municípios dos 9 estados
+do Nordeste (AL, BA, CE, MA, PB, PE, PI, RN, SE) — não só os ~44 municípios-sede das nove
+unidades, que era a lista anterior. Faz sentido mesmo fora dos sete estados com unidade
+física: `unidadeMaisProxima()` (`lib/distancia.ts`) sempre responde com a unidade mais perto
+em linha reta, então um produtor no Piauí ou na Paraíba ainda recebe uma unidade e um
+WhatsApp válidos. Dados de `kelvins/municipios-brasileiros` (IBGE), filtrados para os 9
+códigos de UF do Nordeste. Servidos de `public/mapa/municipios-nordeste.json` e buscados em
+runtime (mesmo padrão do `countries-110m.json`) para não engordar o bundle JS da home — ver
+`components/mapa-cobertura/busca-cobertura.tsx`.
+
+**Seleção no mapa (2026-08-17):** o círculo invisível de clique de cada ponto tinha
+`tabIndex` sem `outline` customizado, então o navegador desenhava o anel de foco padrão (um
+quadrado azul) ao redor do ponto sempre que ele era selecionado — não só na navegação por
+teclado. Removido (`outline-none` + `focus-visible:outline-cana`, que só aparece para
+navegação real por teclado). A indicação de "unidade selecionada" agora é só o ponto ficando
+maior, laranja (`--dourado`) e piscando (`@keyframes mapa-pisca`, respeitando
+`prefers-reduced-motion` como as demais animações do mapa).
+
 ### Paleta
 
 **Atualizado (2026-08-12):** a paleta original deste documento (verde-oliva/massapê marrom)
@@ -273,13 +291,14 @@ components/
   pendente-foto.tsx               placeholder de foto pendente
   barra-fixa-mobile.tsx           barra inferior fixa (WhatsApp/Unidades) — só na home mobile
 content/
-  unidades.json                   as nove unidades, com lat/lng
-  linhas.json                     as sete linhas de produto
-  culturas.json                   as cinco culturas/criações + linhas atendidas (mega-menu, hover)
-  municipios.json                 municípios usados na busca do mapa de cobertura
-public/logo/                      logo oficial extraída de brand-source/SEMEAR-LOGO-APROVADO.pdf
-                                   (semear-color.svg para fundo claro, semear-branco.svg para --mata)
-public/mapa/countries-110m.json   TopoJSON do world-atlas@2.0.2, vendorizado (não busca de CDN)
+  unidades.json                        as nove unidades, com lat/lng
+  linhas.json                          as sete linhas de produto
+  culturas.json                        as cinco culturas/criações + linhas atendidas (mega-menu, hover)
+public/logo/                           logo oficial extraída de brand-source/SEMEAR-LOGO-APROVADO.pdf
+                                        (semear-color.svg para fundo claro, semear-branco.svg para --mata)
+public/mapa/countries-110m.json        TopoJSON do world-atlas@2.0.2, vendorizado (não busca de CDN)
+public/mapa/municipios-nordeste.json   os 1.794 municípios dos 9 estados do Nordeste, buscado
+                                        em runtime pela busca de cobertura (ver seção 4)
 ```
 
 ---

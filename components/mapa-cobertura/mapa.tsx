@@ -196,7 +196,10 @@ export function Mapa({
               cy={u.y}
               r={ativo ? 10 : 6.5}
               fill={ativo ? T.ativo : T.ponto}
-              style={{ transition: "r .3s ease, fill .3s ease" }}
+              style={{
+                transition: "r .3s ease, fill .3s ease",
+                animation: ativo ? "mapa-pisca 1.1s ease-in-out infinite" : undefined,
+              }}
             />
             <text
               x={u.x}
@@ -219,7 +222,7 @@ export function Mapa({
               cy={u.y}
               r={22}
               fill="transparent"
-              className="cursor-pointer"
+              className="cursor-pointer outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cana"
               tabIndex={0}
               role="button"
               aria-label={`Ver unidade ${u.nome}`}
