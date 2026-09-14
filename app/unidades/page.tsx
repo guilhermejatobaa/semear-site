@@ -23,8 +23,8 @@ export default function UnidadesPage() {
         <p className="mt-4 max-w-[56ch] text-[16px]/relaxed text-osso/78 sm:mt-4.5 sm:text-[18px]">
           Lojas próprias em sete estados, com estoque e equipe técnica, não
           representantes. A consultoria atende os nove estados do Nordeste.
-          Filtre por estado ou passe o mouse num endereço
-          para vê-lo no mapa.
+          Filtre por estado, toque num ponto do mapa ou passe o mouse num
+          endereço.
         </p>
       </section>
 

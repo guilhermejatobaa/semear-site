@@ -15,7 +15,20 @@ function linkWhatsapp(nome: string) {
 
 export function UnidadesLista() {
   const [uf, setUf] = useState("Todas");
-  const [emFoco, setEmFoco] = useState<string | null>(null);
+  // Dois estados distintos de propósito: `sobHover` é passageiro (mouse nos
+  // cartões) e `selecionada` é fixo (clique num ponto do mapa). Com um estado
+  // só, passar o mouse num cartão apagaria a unidade escolhida no mapa.
+  const [sobHover, setSobHover] = useState<string | null>(null);
+  const [selecionada, setSelecionada] = useState<string | null>(null);
+  const emFoco = sobHover ?? selecionada;
+
+  function selecionarNoMapa(slug: string) {
+    setSelecionada((atual) => (atual === slug ? null : slug));
+    // Se o filtro de UF escondia essa unidade, o clique no mapa apontaria para
+    // um cartão invisível — então o filtro abre.
+    const alvo = unidades.find((u) => u.slug === slug);
+    if (alvo && uf !== "Todas" && alvo.uf !== uf) setUf("Todas");
+  }
 
   const ufs = useMemo(
     () => ["Todas", ...Array.from(new Set(unidades.map((u) => u.uf)))],
@@ -53,8 +66,8 @@ export function UnidadesLista() {
           {filtradas.map((u) => (
             <div
               key={u.slug}
-              onMouseEnter={() => setEmFoco(u.slug)}
-              onMouseLeave={() => setEmFoco(null)}
+              onMouseEnter={() => setSobHover(u.slug)}
+              onMouseLeave={() => setSobHover(null)}
               className={`border bg-white p-6 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-cana ${
                 emFoco === u.slug ? "border-cana" : "border-mata/16"
               }`}
@@ -101,11 +114,11 @@ export function UnidadesLista() {
       </div>
 
       <div className="px-4 pb-10 sm:sticky sm:top-0 sm:px-12 sm:py-14">
-        <div className="h-[360px] border border-mata/20 sm:h-[640px]">
-          <Mapa tema="mata" selecionada={emFoco} />
+        <div className="aspect-[671/720] max-h-[640px] w-full border border-mata/20">
+          <Mapa tema="mata" selecionada={emFoco} onSelecionar={selecionarNoMapa} />
         </div>
         <p className="mt-3 text-[12px] font-medium tracking-[.12em] text-grafite uppercase">
-          Clique num ponto ou passe o mouse nos cartões
+          Toque num ponto do mapa ou passe o mouse nos cartões
         </p>
       </div>
     </div>

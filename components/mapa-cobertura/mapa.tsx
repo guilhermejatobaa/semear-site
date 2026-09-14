@@ -13,9 +13,16 @@ import { TEMAS, UFS_ROTULO, type NomeTema } from "./temas";
 // estados não é a cor, são os pontos das unidades. PI e PB não têm loja, mas
 // são território atendido como qualquer outro (devolutiva, item 1.1).
 
-const W = 760;
-const H = 640;
-const PAD = 26;
+// O viewBox segue a proporção real do Nordeste projetado em Mercator (0,932:
+// a região é mais ALTA que larga). A versão anterior era 760x640 — mais larga
+// que alta —, o que deixava faixas mortas de 130px a 190px em cima e embaixo
+// dentro dos contêineres, que são todos mais altos que largos.
+const W = 671;
+const H = 720;
+const PAD = 12;
+// Limites exatos da terra das nove UFs, medidos de ufs-nordeste.json. O recorte
+// anterior parava em lat -14.8 e cortava a Bahia, que desce até -18.34: a ponta
+// dela ficava fora do retângulo do mar e era recortada pela borda do elemento.
 const RECORTE: GeoJSON.Feature<GeoJSON.Polygon> = {
   type: "Feature",
   properties: {},
@@ -23,11 +30,11 @@ const RECORTE: GeoJSON.Feature<GeoJSON.Polygon> = {
     type: "Polygon",
     coordinates: [
       [
-        [-49.5, -1.2],
-        [-33.2, -1.2],
-        [-33.2, -14.8],
-        [-49.5, -14.8],
-        [-49.5, -1.2],
+        [-48.76, -1.05],
+        [-32.41, -1.05],
+        [-32.41, -18.34],
+        [-48.76, -18.34],
+        [-48.76, -1.05],
       ],
     ],
   },
@@ -149,12 +156,20 @@ export function Mapa({
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
+      // Ancorado no topo, não centralizado: quando sobra altura no contêiner,
+      // o padrão (xMidYMid) divide a sobra em cima e embaixo e empurra a costa
+      // do Maranhão para baixo. Com YMin a sobra vai toda para o rodapé, onde
+      // é só mar, e o mapa encosta na divisória do cabeçalho.
+      preserveAspectRatio="xMidYMin meet"
       className={className}
       role="img"
       aria-label="Mapa de cobertura da Semear no Nordeste do Brasil"
       style={{ display: "block", width: "100%", height: "100%" }}
     >
-      <rect width={W} height={H} fill={T.mar} />
+      {/* Deliberadamente muito maior que o viewBox: o SVG recorta no viewport
+          do elemento, não no viewBox, então isto garante mar em toda a sobra
+          quando a proporção do contêiner não bate com a do mapa. */}
+      <rect x={-W} y={-H} width={W * 3} height={H * 3} fill={T.mar} />
 
       {paises &&
         paises.features.map((f, i) => (
