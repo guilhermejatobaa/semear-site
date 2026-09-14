@@ -2,6 +2,19 @@
 
 Brief do projeto. Leia antes de escrever qualquer código.
 
+**Atualização (2026-09-14) — devolutiva do marketing:** o marketing entregou a
+`DEVOLUTIVA MARKETING.pdf` com pedidos de estrutura, conteúdo e funcionalidade. Foi
+implementada integralmente. Os pontos em que ela **supera** este documento estão marcados
+nas seções 1, 2, 4, 5, 6 e 7 com a etiqueta *(devolutiva 2026-09-14)*. Três decisões foram
+tomadas pelo Guilherme em cima de conflitos com este brief:
+`/unidades` fica (a devolutiva sugeria avaliar remoção); o Instagram usa embed oficial,
+não link estático; e "Credenciais" foi substituído por "Parceiros estratégicos", o que
+removeu o selo do CRMV-AL do site.
+
+Na mesma rodada o Guilherme corrigiu um erro que estava no ar desde o começo: **a Semear
+atende os nove estados do Nordeste**, não sete — sete é a contagem de lojas físicas. Ver
+seções 2 e 4.
+
 **Atualização (2026-08-13):** o Guilherme entregou um pacote de design completo em alta
 fidelidade (protótipos `.dc.html` + `mapa-nordeste.html`, ver histórico do commit que
 introduziu esta atualização) cobrindo Home, Unidades, Consultoria e Institucional, desktop
@@ -29,8 +42,11 @@ Não é o site final: é a prova de que a direção funciona.
 - CMS, painel administrativo, autenticação
 - Catálogo de produtos com página por SKU
 - Blog, e-commerce, carrinho
-- Páginas `/contato`, `/trabalhe-conosco` — deixe como rota vazia (o CTA "Enviar currículo"
-  de `/institucional` aponta para `/trabalhe-conosco`, que segue vazia até ter destino real)
+- Página `/contato` — deixe como rota vazia
+- ~~`/trabalhe-conosco` como rota vazia~~ — **(devolutiva 2026-09-14)** entrou no escopo: a
+  devolutiva deu o destino real dos currículos (`curriculos@semear-br.com`), que era a
+  condição registrada aqui para a página sair do limbo. O bloco "Trabalhe conosco" saiu da
+  `/institucional` por pedido do item 2.8 e agora vive só nessa página
 - Configuração de domínio ou DNS
 
 > **Nota:** a versão original deste documento também listava `/institucional` como rota
@@ -48,9 +64,19 @@ ser navegável no celular numa reunião.
 ## 2. A empresa
 
 Distribuidora de insumos agropecuários, fundada em 2007 em Maceió/AL por Hélio Jatobá e
-Marcos Pacheco. Nove unidades em sete estados do Nordeste (AL, SE, PE, CE, RN, MA, BA — a
-versão original deste documento dizia "seis estados", contagem errada; corrigido em
-2026-08-13 a partir da contagem real das UFs na tabela abaixo).
+Marcos Pacheco.
+
+**Cobertura e lojas são números diferentes — não confunda os dois (corrigido 2026-09-14):**
+
+- **Atende os nove estados do Nordeste**, ou seja, a região inteira. Confirmado pelo
+  Guilherme. É o número que o site comunica como cobertura.
+- **Tem loja própria em sete deles**: AL, SE, PE, CE, RN, MA, BA. Piauí e Paraíba são
+  atendidos pela consultoria, sem unidade física.
+
+Use "sete estados" só quando a frase for literalmente sobre lojas. A versão original deste
+documento dizia "seis estados" (contagem errada, corrigida em 2026-08-13) e depois "sete
+estados" como se fosse cobertura — era a contagem de lojas ocupando o lugar da cobertura.
+Ver seção 4 para o efeito disso no mapa e na faixa de números.
 
 | Unidade | Cidade / UF |
 |---|---|
@@ -71,6 +97,19 @@ medicamentos veterinários, ferramentas e utensílios.
 
 **Credenciais reais:** selo de excelência do CRMV-AL; parceria com Bayer; presença em
 Citros Show e Expoimp.
+
+**(devolutiva 2026-09-14) — o site não mostra mais as credenciais.** O item 2.7 mandou
+substituir o bloco "Credenciais" por "Parceiros estratégicos", e o Guilherme optou por
+cumprir ao pé da letra. O selo do CRMV-AL continua sendo um fato real da empresa, mas saiu
+da home e da institucional. Parceiros exibidos: Bayer, UPL, Nortox, Biogénesis, Germisul,
+Belgo (`content/parceiros.json`) — em grade estática, nunca carrossel (seção 5).
+
+**(devolutiva 2026-09-14) — datas de abertura e telefone por unidade.** Vieram no item 2.3 e
+vivem em `content/unidades.json` (`abertura`, `aberturaAno`, `telefone`). A linha do tempo da
+`/institucional` é derivada desses dados, não escrita à mão. Paripiranga (2023) ainda não tem
+telefone definido — o campo é `null` e a interface marca como pendente. Os números são quase
+todos fixos, então os links são `tel:`, não `wa.me`: um `wa.me` sobre número fixo abre uma
+conversa que não existe.
 
 **WhatsApp comercial:** (82) 3328-1831.
 
@@ -128,6 +167,38 @@ WhatsApp válidos. Dados de `kelvins/municipios-brasileiros` (IBGE), filtrados p
 códigos de UF do Nordeste. Servidos de `public/mapa/municipios-nordeste.json` e buscados em
 runtime (mesmo padrão do `countries-110m.json`) para não engordar o bundle JS da home — ver
 `components/mapa-cobertura/busca-cobertura.tsx`.
+
+**Estados delimitados (devolutiva 2026-09-14, item 1.1):** o mapa agora desenha os
+contornos das UFs, não só o do país. Geometria das malhas do IBGE
+(`servicodados.ibge.gov.br/api/v3/malhas`, qualidade intermediária), filtrada para as 9 UFs
+do Nordeste e vendorizada em `public/mapa/ufs-nordeste.json` (65 KB, buscada em runtime como
+o `countries-110m.json`).
+
+> **Armadilha, se for regerar esse arquivo:** o d3-geo usa a convenção de enrolamento
+> **oposta** à da RFC 7946 — anel exterior **horário**, buracos anti-horário. O IBGE entrega
+> no sentido do GeoJSON (anti-horário). Com o sentido do IBGE, o d3 desenha o *complemento*
+> de cada polígono e pinta a tela inteira, deixando só um estado visível como buraco. O
+> script de geração rebobina os 16 anéis exteriores. O TopoJSON do world-atlas já vem na
+> convenção do d3, e é por isso que o mapa de países nunca teve esse problema.
+
+**A Semear atende os nove estados do Nordeste (2026-09-14).** Confirmado pelo Guilherme, e
+é a correção mais importante desta rodada: a contagem de **sete** estados sempre foi sobre
+**lojas físicas**, nunca sobre cobertura. PI e PB não têm unidade, mas são atendidos pela
+consultoria como qualquer outro estado — o que, aliás, o `unidadeMaisProxima()`
+(`lib/distancia.ts`) já fazia desde 2026-08-17.
+
+Consequências no código, todas deliberadas:
+
+- O mapa preenche as nove UFs com **o mesmo tom** (`atuacao`). Uma versão intermediária
+  chegou a pintar PI e PB num tom mais apagado; foi descartada porque sugeria cobertura
+  parcial. O que distingue os estados são os pontos das unidades, não a cor.
+- O Nordeste tem exatamente nove estados, então atender os nove é atender a região inteira —
+  daí "todo o Nordeste atendido" na barra de topo e no Open Graph, que é uma afirmação mais
+  forte e igualmente verificável.
+- O contador da home é **9 estados atendidos**, não 7. A faixa passou a ser
+  9 unidades · 9 estados · 7 linhas · 19 anos.
+- Onde o texto fala de **loja**, "sete estados" continua correto e foi mantido
+  (`/unidades`, parágrafo de história da institucional).
 
 **Seleção no mapa (2026-08-17):** o círculo invisível de clique de cada ponto tinha
 `tabIndex` sem `outline` customizado, então o navegador desenhava o anel de foco padrão (um
@@ -196,7 +267,7 @@ de fade em tudo. `prefers-reduced-motion` respeitado.
 
 **Contador animado — exceção deliberada e aprovada pelo cliente (2026-08-13):** a seção 5
 lista "contador animado" como anti-padrão. O Guilherme pediu explicitamente os contadores da
-faixa de números (9 unidades · 7 estados · 7 linhas · 19 anos) com rampa `easeOutCubic` ao
+faixa de números (9 unidades · 9 estados · 7 linhas · 19 anos) com rampa `easeOutCubic` ao
 entrar na tela — ver `components/contador.tsx`. A condição que preserva o espírito do
 anti-padrão original: **os números são sempre reais e verificáveis**, nunca uma métrica
 inflada tipo "3.000+ clientes". Se o marketing reverter essa decisão, basta renderizar o
@@ -214,10 +285,15 @@ então a mudança é só remover a rampa visual).
   unidades, culturas — está OK; o clichê é o ícone-em-círculo, não o card)
 - Seção de "números" com contador animado inflado (3.000+ clientes etc.) — **contador em si
   não é mais proibido**, ver exceção aprovada na seção 4 (Movimento): os números da faixa
-  9/7/7/19 são reais e verificáveis, o anti-padrão é a métrica chutada, não a animação
+  9/9/7/19 são reais e verificáveis, o anti-padrão é a métrica chutada, não a animação
 - Texto de marketing vazio: "soluções inovadoras", "excelência", "compromisso com o campo"
-- Carrossel de logos de parceiros rolando infinitamente
-- Chat bubble flutuante no canto além do botão de WhatsApp
+- Carrossel de logos de parceiros rolando infinitamente — **a seção de parceiros existe**
+  desde a devolutiva 2026-09-14 (`components/parceiros.tsx`), mas em grade estática; o
+  proibido continua sendo o carrossel
+- Chat bubble flutuante no canto **além** do botão de WhatsApp — o botão de WhatsApp em si é
+  o caso aceito, e desde a devolutiva 2026-09-14 ele existe (`components/botao-whatsapp.tsx`,
+  item 2.1). É o único elemento flutuante do site. Na home em telas pequenas ele some, porque
+  a `BarraFixaMobile` já ocupa a borda inferior com um botão de WhatsApp
 - Cookie banner que cobre metade da tela
 - Estética "AI genérica": cream + serifada alta + acento terracota; preto + verde ácido;
   layout de jornal com filetes soltos sem sistema
@@ -254,6 +330,25 @@ Para fotos que ainda não existem (a maioria do pacote de design de 2026-08-13 u
 de imagem), use `<PendenteFoto legenda="..." />` (`components/pendente-foto.tsx`) — mesma
 lógica do `Pendente`, dimensionado para preencher o espaço da foto na composição.
 
+**(devolutiva 2026-09-14) — o que ainda está pendente e por quê.** A devolutiva pediu várias
+seções cujo conteúdo real não veio junto. Todas foram construídas com a estrutura pronta e o
+conteúdo marcado, nunca preenchido por invenção:
+
+| O que falta | Onde | Formato de entrega |
+|---|---|---|
+| Depoimentos de clientes | `content/depoimentos.json` (vazio) | nome, município, cultura, texto, foto |
+| Perfis das redes sociais | `content/externos.json` | URLs de Instagram, Facebook, LinkedIn, YouTube |
+| Posts do Instagram | `content/externos.json` → `instagramPosts` | permalinks (o embed oficial da Meta é por post; embed de perfil foi descontinuado) |
+| Vídeo institucional | `content/externos.json` → `videoInstitucionalId` | ID do vídeo no YouTube |
+| Logos dos parceiros | `public/` | 6 logos em SVG ou PNG com fundo transparente |
+| Missão e visão | `app/institucional/page.tsx` | texto oficial dos sócios |
+| Política de privacidade | `app/privacidade/page.tsx` | documento jurídico — não redigir a partir de modelo genérico |
+| Telefone de Paripiranga | `content/unidades.json` | a devolutiva registra "ainda não definido" |
+
+Nota sobre o texto do item 6.2 (aviso de defensivos, no rodapé): o parêntese final do PDF
+("é uma obrigação legal estar em dia com INPEV, mas também é uma boa prática que podemos
+evidenciar") é nota interna ao documento, não copy — não foi publicado.
+
 ---
 
 ## 7. Stack
@@ -273,8 +368,11 @@ app/
   page.tsx                        home
   unidades/page.tsx               + unidades-lista.tsx (filtro por UF + mapa sincronizado)
   consultoria/page.tsx            + consultoria-form.tsx (formulário real, POST ao route handler)
-  institucional/page.tsx          história, linha do tempo, valores, trabalhe conosco
-  contato/, trabalhe-conosco/     rotas vazias — fora do escopo, ver seção 1
+  institucional/page.tsx          história, linha do tempo real, missão/visão/valores,
+                                  vídeo institucional, parceiros, Instagram
+  privacidade/page.tsx            política de privacidade (devolutiva 5) — texto pendente
+  trabalhe-conosco/page.tsx       vagas e envio de currículo (devolutiva 2.8)
+  contato/                        rota vazia — fora do escopo, ver seção 1
   api/consultoria/route.ts
 components/
   cabecalho.tsx                   header + barra de topo (home) + mega-menu + hambúrguer mobile
@@ -290,8 +388,17 @@ components/
   pendente.tsx                    texto pendente
   pendente-foto.tsx               placeholder de foto pendente
   barra-fixa-mobile.tsx           barra inferior fixa (WhatsApp/Unidades) — só na home mobile
+  botao-whatsapp.tsx              botão flutuante de WhatsApp (devolutiva 2.1)
+  parceiros.tsx                   grade estática de parceiros (devolutiva 2.7)
+  depoimentos.tsx                 "Quem compra da Semear" (devolutiva 1.2)
+  instagram.tsx                   embed oficial, carregado por IntersectionObserver (2.5)
+  video-institucional.tsx         YouTube por fachada, iframe só após o clique (2.9)
+  redes-sociais.tsx               ícones do rodapé (devolutiva 6.1)
 content/
-  unidades.json                        as nove unidades, com lat/lng
+  unidades.json                        as nove unidades, com lat/lng, abertura e telefone
+  parceiros.json                       os seis parceiros estratégicos (devolutiva 2.7)
+  depoimentos.json                     depoimentos de clientes — vazio, a coletar (devolutiva 1.2)
+  externos.json                        links de terceiros (redes, Instagram, YouTube) e e-mail de currículos
   linhas.json                          as sete linhas de produto
   culturas.json                        as cinco culturas/criações + linhas atendidas (mega-menu, hover)
 public/logo/                           logo oficial extraída de brand-source/SEMEAR-LOGO-APROVADO.pdf
@@ -299,6 +406,8 @@ public/logo/                           logo oficial extraída de brand-source/SE
 public/mapa/countries-110m.json        TopoJSON do world-atlas@2.0.2, vendorizado (não busca de CDN)
 public/mapa/municipios-nordeste.json   os 1.794 municípios dos 9 estados do Nordeste, buscado
                                         em runtime pela busca de cobertura (ver seção 4)
+public/mapa/ufs-nordeste.json          malhas de UF do IBGE, 9 estados, rebobinadas para a
+                                        convenção do d3-geo (ver seção 4)
 ```
 
 ---
@@ -344,3 +453,13 @@ Confirme com o Guilherme quais campos o comercial realmente usa antes de fechar 
 - `next/image` em tudo; nenhuma imagem acima de 200KB
 - `<title>` e meta description por página, específicos. O site atual tem só "Semear"
 - Open Graph com imagem 1200×630 real — o WhatsApp é o principal canal da empresa
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

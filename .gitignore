@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# grafo de conhecimento gerado pelo graphify (recriável com `graphify update .`)
+/graphify-out/

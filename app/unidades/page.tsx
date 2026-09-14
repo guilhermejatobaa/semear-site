@@ -5,7 +5,7 @@ import { UnidadesLista } from "./unidades-lista";
 export const metadata: Metadata = {
   title: "Unidades",
   description:
-    "As nove unidades da Semear Agronegócios em Alagoas, Sergipe, Pernambuco, Ceará, Rio Grande do Norte, Maranhão e Bahia — endereço e WhatsApp de cada uma.",
+    "As nove unidades da Semear Agronegócios em Alagoas, Sergipe, Pernambuco, Ceará, Rio Grande do Norte, Maranhão e Bahia. Endereço e WhatsApp de cada uma.",
 };
 
 export default function UnidadesPage() {
@@ -18,11 +18,12 @@ export default function UnidadesPage() {
         <h1 className="mt-3.5 font-display text-[52px]/[.95] font-extrabold tracking-[-.04em] sm:text-[76px]/[.95]">
           Nove endereços,
           <br />
-          sete estados.
+          todo o Nordeste.
         </h1>
         <p className="mt-4 max-w-[56ch] text-[16px]/relaxed text-osso/78 sm:mt-4.5 sm:text-[18px]">
-          Todas são lojas próprias com estoque e equipe técnica — não
-          representantes. Filtre por estado ou passe o mouse num endereço
+          Lojas próprias em sete estados, com estoque e equipe técnica, não
+          representantes. A consultoria atende os nove estados do Nordeste.
+          Filtre por estado ou passe o mouse num endereço
           para vê-lo no mapa.
         </p>
       </section>

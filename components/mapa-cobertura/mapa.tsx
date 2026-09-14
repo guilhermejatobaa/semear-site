@@ -8,6 +8,11 @@ import type { FeatureCollection, Geometry } from "geojson";
 import unidades from "@/content/unidades.json";
 import { TEMAS, UFS_ROTULO, type NomeTema } from "./temas";
 
+// ufs-nordeste.json traz as nove UFs do Nordeste, e a Semear atende todas —
+// a região inteira. Por isso o preenchimento é uniforme: o que distingue os
+// estados não é a cor, são os pontos das unidades. PI e PB não têm loja, mas
+// são território atendido como qualquer outro (devolutiva, item 1.1).
+
 const W = 760;
 const H = 640;
 const PAD = 26;
@@ -52,6 +57,26 @@ function carregarPaises() {
   return paisesCachePromise;
 }
 
+type PropsUf = { sigla: string; nome: string };
+let ufsCache: FeatureCollection<Geometry, PropsUf> | null = null;
+let ufsCachePromise: Promise<FeatureCollection<Geometry, PropsUf>> | null = null;
+
+function carregarUfs() {
+  if (ufsCache) return Promise.resolve(ufsCache);
+  if (!ufsCachePromise) {
+    ufsCachePromise = fetch("/mapa/ufs-nordeste.json")
+      .then((r) => {
+        if (!r.ok) throw new Error("Falha ao carregar geometria das UFs");
+        return r.json();
+      })
+      .then((fc: FeatureCollection<Geometry, PropsUf>) => {
+        ufsCache = fc;
+        return fc;
+      });
+  }
+  return ufsCachePromise;
+}
+
 const projecao = geoMercator().fitExtent(
   [
     [PAD, PAD],
@@ -90,6 +115,9 @@ export function Mapa({
     Geometry,
     { name: string }
   > | null>(paisesCache);
+  const [ufs, setUfs] = useState<FeatureCollection<Geometry, PropsUf> | null>(
+    ufsCache
+  );
   const [erro, setErro] = useState(false);
   const [sobrevoo, setSobrevoo] = useState<string | null>(null);
   const T = TEMAS[tema];
@@ -100,6 +128,14 @@ export function Mapa({
       .then(setPaises)
       .catch(() => setErro(true));
   }, [paises]);
+
+  useEffect(() => {
+    if (ufs) return;
+    // Falha aqui não quebra o mapa: sem as UFs ele volta ao desenho de país.
+    carregarUfs()
+      .then(setUfs)
+      .catch(() => undefined);
+  }, [ufs]);
 
   const pontosXy = useMemo(
     () =>
@@ -131,9 +167,23 @@ export function Mapa({
           />
         ))}
 
+      {ufs &&
+        ufs.features.map((f) => {
+          return (
+            <path
+              key={f.properties.sigla}
+              d={caminho(f) ?? undefined}
+              fill={T.atuacao}
+              stroke={T.atuacaoTraco}
+              strokeWidth={1}
+              strokeLinejoin="round"
+            />
+          );
+        })}
+
       {erro && (
         <text x={PAD} y={PAD + 16} fill={T.rotulo} fontSize={12}>
-          Mapa offline — geometria não carregada
+          Mapa offline: geometria não carregada
         </text>
       )}
 

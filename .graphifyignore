@@ -1,0 +1,8 @@
+# Documentação da própria ferramenta graphify — não é conteúdo do projeto.
+# São ~11k palavras contra ~3k dos docs reais do site; sem isso a maior
+# comunidade de documentos do grafo passa a ser "como o graphify funciona".
+.claude/skills/
+
+# Saída do build e artefatos do próprio grafo.
+.next/
+graphify-out/

@@ -3,50 +3,31 @@ import Link from "next/link";
 import { Revela } from "@/components/revela";
 import { Pendente } from "@/components/pendente";
 import { PendenteFoto } from "@/components/pendente-foto";
+import { Parceiros } from "@/components/parceiros";
+import { Instagram } from "@/components/instagram";
+import { VideoInstitucional } from "@/components/video-institucional";
+import unidades from "@/content/unidades.json";
 
 export const metadata: Metadata = {
   title: "Institucional",
   description:
-    "A história da Semear Agronegócios: fundada em 2007 em Maceió/AL, hoje nove unidades em sete estados do Nordeste.",
+    "A história da Semear Agronegócios: fundada em 2007 em Maceió/AL, hoje nove unidades próprias atendendo os nove estados do Nordeste.",
 };
 
-const MARCOS = [
-  {
-    ano: "2007",
-    t: "Fundação em Maceió",
-    d: "Hélio Jatobá e Marcos Pacheco abrem a primeira loja, com foco em cana e pecuária em Alagoas.",
-    pendente: false,
-  },
-  {
-    ano: "—",
-    t: "Expansão para Sergipe e Pernambuco",
-    d: "Itabaiana, Carpina e Paripiranga: o atendimento passa a acompanhar o produtor além de AL.",
-    pendente: true,
-  },
-  {
-    ano: "—",
-    t: "Chegada ao Ceará e ao Rio Grande do Norte",
-    d: "Limoeiro do Norte e Mossoró abrem a operação de fruticultura irrigada.",
-    pendente: true,
-  },
-  {
-    ano: "—",
-    t: "Maranhão: Imperatriz",
-    d: "A unidade mais a oeste, atendendo grãos e pecuária no corredor da BR-010.",
-    pendente: true,
-  },
-  {
-    ano: "2026",
-    t: "Nove unidades em sete estados",
-    d: "Consultoria técnica própria em campo e sete linhas de insumo.",
-    pendente: false,
-  },
-];
+// Linha do tempo das unidades (devolutiva, item 2.3). As datas e os telefones
+// vieram do marketing e vivem em content/unidades.json — aqui só ordenamos.
+// Telefones são majoritariamente fixos, então o link é tel:, não wa.me: um
+// wa.me sobre número fixo abre uma conversa que não existe.
+const MARCOS = [...unidades].sort((a, b) => a.aberturaAno - b.aberturaAno);
+
+function telHref(telefone: string) {
+  return `tel:+55${telefone.replace(/\D/g, "")}`;
+}
 
 const VALORES = [
   {
     t: "Presença, não representação",
-    d: "Loja própria com estoque e equipe na região — o produtor sabe onde nos achar.",
+    d: "Loja própria com estoque e equipe na região: o produtor sabe onde nos achar.",
   },
   {
     t: "Recomendação técnica antes da venda",
@@ -63,7 +44,7 @@ export default function InstitucionalPage() {
     <>
       <div className="relative h-[320px] sm:h-[460px]">
         <PendenteFoto
-          legenda="Foto larga: fachada da matriz ou equipe reunida"
+          legenda="Foto larga: fachada da loja matriz (Maceió)"
           className="absolute inset-0"
           posicao="topo"
         />
@@ -96,18 +77,18 @@ export default function InstitucionalPage() {
             Em 2007, Hélio Jatobá e Marcos Pacheco abriram a Semear para
             atender o produtor alagoano com o que faltava na região: insumo
             disponível e alguém que soubesse recomendar. A lógica não mudou
-            desde então — cada unidade nova nasceu de um pedido de cliente
+            desde então: cada unidade nova nasceu de um pedido de cliente
             que queria a mesma assistência mais perto da propriedade.
           </p>
           <p className="mt-4 text-[16px]/[1.7] text-grafite sm:text-[17px]">
-            Hoje são nove unidades próprias em sete estados do Nordeste, sete
-            linhas de insumo e uma equipe técnica que atende cana, citros,
-            pastagem e pecuária, coco e fruticultura.
+            Hoje são nove unidades próprias, com loja em sete estados e
+            consultoria atendendo os nove estados do Nordeste, sete linhas de
+            insumo e uma equipe técnica que cobre cana, citros, pastagem e
+            pecuária, coco e fruticultura.
           </p>
           <div className="mt-7">
             <Pendente>
-              Revisar este texto com os sócios e confirmar as datas de cada
-              expansão
+              Revisar este texto de história com os sócios
             </Pendente>
           </div>
         </div>
@@ -118,33 +99,66 @@ export default function InstitucionalPage() {
           </p>
           <div className="mt-6 flex flex-col gap-6 border-l-2 border-cana pl-6 sm:mt-[22px] sm:gap-[26px] sm:pl-[26px]">
             {MARCOS.map((m) => (
-              <Revela key={m.t}>
-                {m.pendente ? (
-                  <span className="inline-block border border-dashed border-dourado bg-dourado/10 px-2 py-1 font-display text-[13px] font-bold tracking-[.04em] text-dourado uppercase">
-                    Data pendente
-                  </span>
-                ) : (
-                  <p className="font-display text-[22px]/none font-extrabold tracking-[-.02em]">
-                    {m.ano}
-                  </p>
-                )}
+              <Revela key={m.slug}>
+                <p className="font-display text-[22px]/none font-extrabold tracking-[-.02em]">
+                  {m.abertura}
+                </p>
                 <h3 className="mt-2 text-[18px]/[1.2] font-bold sm:mt-2 sm:text-[19px]">
-                  {m.t}
+                  {m.nome} · {m.cidade}/{m.uf}
                 </h3>
                 <p className="mt-1.5 text-[15px]/relaxed text-grafite sm:text-[15.5px]">
-                  {m.d}
+                  {m.endereco}
                 </p>
+                {m.telefone ? (
+                  <a
+                    href={telHref(m.telefone)}
+                    className="mt-1.5 inline-block text-[15px] font-semibold text-mata underline underline-offset-4"
+                  >
+                    {m.telefone}
+                  </a>
+                ) : (
+                  <span className="mt-2 inline-block border border-dashed border-dourado bg-dourado/10 px-2 py-1 font-display text-[11px] font-bold tracking-[.14em] text-mata uppercase">
+                    Pendente · contato ainda não definido
+                  </span>
+                )}
               </Revela>
             ))}
           </div>
         </div>
       </section>
 
+      <VideoInstitucional />
+
       <section className="bg-mata px-4 py-14 text-osso sm:px-12 sm:py-[72px]">
         <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-dourado uppercase">
-          Como trabalhamos
+          Missão, visão e valores
         </p>
-        <div className="mt-8 grid grid-cols-1 gap-8 border-t-2 border-cana/60 sm:mt-9 sm:grid-cols-3 sm:gap-0">
+
+        {/* Missão e visão (devolutiva, item 2.4). Os textos oficiais ainda não
+            existem — pelo §6 não se escreve missão corporativa por conta. */}
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-9 sm:grid-cols-2 sm:gap-5">
+          <div className="border border-osso/16 p-6 sm:p-7">
+            <h3 className="font-display text-[24px]/[1.1] font-extrabold tracking-[-.025em] sm:text-[28px]">
+              Missão
+            </h3>
+            <div className="mt-4">
+              <Pendente>Texto oficial da missão · a definir com os sócios</Pendente>
+            </div>
+          </div>
+          <div className="border border-osso/16 p-6 sm:p-7">
+            <h3 className="font-display text-[24px]/[1.1] font-extrabold tracking-[-.025em] sm:text-[28px]">
+              Visão
+            </h3>
+            <div className="mt-4">
+              <Pendente>Texto oficial da visão · a definir com os sócios</Pendente>
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-12 font-display text-[12px] font-extrabold tracking-[.24em] text-dourado uppercase sm:mt-14">
+          Valores
+        </p>
+        <div className="mt-6 grid grid-cols-1 gap-8 border-t-2 border-cana/60 sm:mt-7 sm:grid-cols-3 sm:gap-0">
           {VALORES.map((v) => (
             <div key={v.t} className="pt-6 sm:pt-8 sm:pr-8">
               <h3 className="font-display text-[24px]/[1.1] font-extrabold tracking-[-.025em] sm:text-[28px]">
@@ -172,51 +186,14 @@ export default function InstitucionalPage() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-12 bg-osso px-4 py-14 sm:px-12 sm:py-[72px] lg:grid-cols-2 lg:gap-16">
-        <div>
-          <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
-            Credenciais
-          </p>
-          <ul className="mt-6 divide-y divide-mata/14 border-t-2 border-mata">
-            <li className="flex items-baseline gap-4 py-5 text-[19px]/none font-semibold">
-              <span className="h-2 w-2 shrink-0 bg-cana" />
-              Selo de excelência do CRMV-AL
-            </li>
-            <li className="flex items-baseline gap-4 py-5 text-[19px]/none font-semibold">
-              <span className="h-2 w-2 shrink-0 bg-cana" />
-              Parceria com a Bayer
-            </li>
-            <li className="flex items-baseline gap-4 py-5 text-[19px]/none font-semibold">
-              <span className="h-2 w-2 shrink-0 bg-cana" />
-              Presença na Citros Show e na Expoimp
-            </li>
-          </ul>
-        </div>
-
-        <div id="trabalhe-conosco" className="scroll-mt-24 bg-dourado px-6 py-9 text-mata sm:px-10 sm:py-10">
-          <p className="font-display text-[12px] font-extrabold tracking-[.24em] uppercase">
-            Trabalhe conosco
-          </p>
-          <h2 className="mt-3.5 font-display text-[32px]/[1] font-extrabold tracking-[-.035em] sm:text-[38px]">
-            Contratamos quem gosta de campo.
-          </h2>
-          <p className="mt-3.5 text-[15px]/relaxed text-mata/82 sm:text-[16px]">
-            Vagas técnicas e comerciais nas nove unidades. Manda currículo
-            dizendo em qual região você quer atuar.
-          </p>
-          <Link
-            href="/trabalhe-conosco"
-            className="mt-6 inline-block bg-mata px-7 py-[18px] font-display text-[13px] font-extrabold tracking-[.14em] text-osso uppercase"
-          >
-            Enviar currículo
-          </Link>
-          <div className="mt-5 border border-dashed border-mata/45 p-3.5">
-            <p className="font-display text-[11px] font-bold tracking-[.16em] uppercase">
-              Pendente · e-mail de RH e vagas abertas
-            </p>
-          </div>
-        </div>
+      {/* Parceiros estratégicos (devolutiva, item 2.7): substitui o bloco
+          "Credenciais". O bloco "Trabalhe conosco" saiu daqui por pedido do
+          item 2.8 — passou a viver só em /trabalhe-conosco. */}
+      <section className="bg-osso px-4 py-14 sm:px-12 sm:py-[72px]">
+        <Parceiros />
       </section>
+
+      <Instagram />
 
       <section className="flex flex-col items-start gap-6 bg-cana px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-12 sm:py-14">
         <h2 className="max-w-[24ch] font-display text-[30px]/[1] font-extrabold tracking-[-.03em] text-mata sm:text-[44px]">

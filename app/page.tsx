@@ -2,9 +2,10 @@ import Link from "next/link";
 import { BuscaCobertura } from "@/components/mapa-cobertura/busca-cobertura";
 import { TrilhaUnidades } from "@/components/mapa-cobertura/trilha-unidades";
 import { CulturasHover } from "@/components/culturas-hover";
+import { Depoimentos } from "@/components/depoimentos";
+import { Parceiros } from "@/components/parceiros";
 import { Contador } from "@/components/contador";
 import { Revela } from "@/components/revela";
-import { Pendente } from "@/components/pendente";
 import { PendenteFoto } from "@/components/pendente-foto";
 import { BarraFixaMobile } from "@/components/barra-fixa-mobile";
 
@@ -17,7 +18,7 @@ const ETAPAS = [
   {
     n: "02",
     t: "O consultor liga",
-    d: "Cultura, área e época de manejo — antes de qualquer cotação.",
+    d: "Cultura, área e época de manejo, antes de qualquer cotação.",
   },
   {
     n: "03",
@@ -41,7 +42,7 @@ export default function Home() {
           <Contador ate={9} rotulo="Unidades próprias" />
         </div>
         <div className="border-r-0 px-6 py-9 sm:border-r sm:border-mata/25 sm:px-10">
-          <Contador ate={7} rotulo="Estados atendidos" />
+          <Contador ate={9} rotulo="Estados atendidos" />
         </div>
         <div className="border-t border-r border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
           <Contador ate={7} rotulo="Linhas de insumo" />
@@ -117,7 +118,7 @@ export default function Home() {
               O consultor não manda cotação. Ele vai até lá.
             </h2>
             <p className="mt-3 max-w-[52ch] text-[15px]/relaxed text-osso/80 sm:mt-4 sm:text-[17px]">
-              Manejo acompanhado safra a safra, com a mesma pessoa — do
+              Manejo acompanhado safra a safra, com a mesma pessoa, do
               plantio ao resultado.
             </p>
           </div>
@@ -148,54 +149,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-osso px-4 py-14 sm:px-12 sm:py-[76px]">
-        <div className="mx-auto grid max-w-[1680px] grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-16">
-          <div>
-            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
-              Credenciais
-            </p>
-            <ul className="mt-6 divide-y divide-mata/14 border-t-2 border-mata">
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Selo de excelência do CRMV-AL
-              </li>
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Parceria com a Bayer
-              </li>
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Presença na Citros Show e na Expoimp
-              </li>
-            </ul>
-            <div className="mt-6">
-              <Pendente>
-                Logos dos parceiros em vetor + autorização de uso
-              </Pendente>
-            </div>
-          </div>
-          <div>
-            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
-              Quem compra da Semear
-            </p>
-            <div className="mt-6 border border-dashed border-dourado bg-dourado/10 p-6">
-              <Pendente>
-                Três depoimentos com nome, município, cultura e foto — a
-                coletar com o comercial
-              </Pendente>
-              <p className="mt-4 text-[14px]/relaxed text-grafite">
-                É o bloco que mais pesa na comparação com a concorrência:
-                nenhuma distribuidora da região mostra produtor com nome e
-                cultura. Vale gravar em vídeo na próxima visita.
-              </p>
-            </div>
-            <div className="mt-5 border border-dashed border-dourado bg-dourado/10 p-6">
-              <Pendente>
-                Notícias e galeria de eventos (Citros Show, Expoimp) —
-                definir se entra no MVP
-              </Pendente>
-            </div>
-          </div>
+      <Depoimentos />
+
+      <section className="bg-mata px-4 py-14 sm:px-12 sm:py-20">
+        <div className="mx-auto max-w-[1680px]">
+          <Parceiros escuro />
         </div>
       </section>
 

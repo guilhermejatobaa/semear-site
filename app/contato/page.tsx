@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function ContatoPage() {
   return (
     <section className="mx-auto max-w-xl px-4 py-16">
-      <Pendente>Página de contato — fora do escopo do MVP</Pendente>
+      <Pendente>Página de contato · fora do escopo do MVP</Pendente>
     </section>
   );
 }

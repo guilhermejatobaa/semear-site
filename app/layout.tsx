@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Inter } from "next/font/google";
 import { Cabecalho } from "@/components/cabecalho";
 import { Rodape } from "@/components/rodape";
+import { BotaoWhatsapp } from "@/components/botao-whatsapp";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -21,11 +22,11 @@ const SITE_URL = "https://semear-site.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Semear Agronegócios — insumos e consultoria técnica no Nordeste",
+    default: "Semear Agronegócios · insumos e consultoria técnica no Nordeste",
     template: "%s | Semear Agronegócios",
   },
   description:
-    "Nove unidades em sete estados do Nordeste. Sementes, fertilizantes, defensivos e consultoria técnica com presença na sua propriedade.",
+    "Nove unidades próprias atendendo os nove estados do Nordeste. Sementes, fertilizantes, defensivos e consultoria técnica com presença na sua propriedade.",
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Rodape />
+        <BotaoWhatsapp />
       </body>
     </html>
   );

@@ -27,7 +27,7 @@ export default function OpengraphImage() {
         <img src={logoDataUri} width={520} height={143} alt="" />
         <div style={{ display: "flex", width: 90, height: 6, background: "#F9A70D", marginTop: 40 }} />
         <div style={{ fontSize: 36, marginTop: 24, color: "#F3F8EC", display: "flex" }}>
-          Nove unidades em sete estados do Nordeste
+          Nove unidades atendendo todo o Nordeste
         </div>
       </div>
     ),

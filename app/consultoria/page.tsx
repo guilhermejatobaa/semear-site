@@ -6,7 +6,7 @@ import { PendenteFoto } from "@/components/pendente-foto";
 export const metadata: Metadata = {
   title: "Falar com um consultor",
   description:
-    "Peça consultoria técnica da Semear Agronegócios. Conte sua cultura, área e município — um consultor da unidade mais próxima entra em contato pelo WhatsApp.",
+    "Peça consultoria técnica da Semear Agronegócios. Conte sua cultura, área e município. Um consultor da unidade mais próxima entra em contato pelo WhatsApp.",
 };
 
 const ETAPAS = [
@@ -18,7 +18,7 @@ const ETAPAS = [
   {
     n: "02",
     t: "O consultor liga",
-    d: "Cultura, área e época de manejo — antes de qualquer cotação.",
+    d: "Cultura, área e época de manejo, antes de qualquer cotação.",
   },
   {
     n: "03",
@@ -69,7 +69,7 @@ export default function ConsultoriaPage() {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="h-[160px] sm:h-[210px]">
             <PendenteFoto legenda="Consultor analisando folha" />
           </div>
