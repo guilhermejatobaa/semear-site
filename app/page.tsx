@@ -6,8 +6,12 @@ import { Depoimentos } from "@/components/depoimentos";
 import { Parceiros } from "@/components/parceiros";
 import { Contador } from "@/components/contador";
 import { Revela } from "@/components/revela";
-import { PendenteFoto } from "@/components/pendente-foto";
 import { BarraFixaMobile } from "@/components/barra-fixa-mobile";
+import linhas from "@/content/linhas.json";
+import { Foto } from "@/components/foto";
+
+// Linhas de insumo = linhas.json sem os servicos (aplicacao por drone).
+const LINHAS_INSUMO = linhas.filter((l) => !("servico" in l && l.servico)).length;
 
 const ETAPAS = [
   {
@@ -45,7 +49,7 @@ export default function Home() {
           <Contador ate={9} rotulo="Estados atendidos" />
         </div>
         <div className="border-t border-r border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
-          <Contador ate={7} rotulo="Linhas de insumo" />
+          <Contador ate={LINHAS_INSUMO} rotulo="Linhas de insumo" />
         </div>
         <div className="border-t border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
           <Contador ate={19} rotulo="Anos de operação" />
@@ -101,10 +105,12 @@ export default function Home() {
       </section>
 
       <div className="relative h-[300px] sm:h-[520px]">
-        <PendenteFoto
-          legenda="Foto larga: consultor técnico com produtor na propriedade"
+        <Foto
+          src="/fotos/consultoria-pastagem.jpg"
+          alt="Dois consultores da Semear agachados no pasto, examinando o capim"
+          sizes="100vw"
+          foco="50% 12%"
           className="absolute inset-0"
-          posicao="topo"
         />
         <div
           className="pointer-events-none absolute inset-0 flex items-end p-6 sm:p-12"
@@ -140,7 +146,7 @@ export default function Home() {
               href="#culturas"
               className="shrink-0 border-b-2 border-cana pb-1 font-display text-[12px] font-extrabold tracking-[.16em] text-cana uppercase"
             >
-              Sete linhas de insumo →
+              Dez linhas de insumo →
             </a>
           </div>
           <div className="mt-10 sm:mt-11">
@@ -183,7 +189,13 @@ export default function Home() {
           </div>
         </div>
         <div className="relative min-h-[260px] sm:min-h-[340px]">
-          <PendenteFoto legenda="Foto: equipe Semear na unidade" className="absolute inset-0" />
+          <Foto
+            src="/fotos/equipe-unidade.jpg"
+            alt="Dois colaboradores da Semear sentados à mesa dentro da loja"
+            sizes="(min-width: 640px) 50vw, 100vw"
+            foco="50% 30%"
+            className="absolute inset-0"
+          />
         </div>
       </section>
 

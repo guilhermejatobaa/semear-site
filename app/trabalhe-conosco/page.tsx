@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Pendente } from "@/components/pendente";
-import { PendenteFoto } from "@/components/pendente-foto";
 import { Revela } from "@/components/revela";
 import externos from "@/content/externos.json";
 import unidades from "@/content/unidades.json";
+import { Foto } from "@/components/foto";
 
 const EMAIL = externos.emailCurriculos;
 const UFS = [...new Set(unidades.map((u) => u.uf))];
@@ -58,13 +58,18 @@ export default function TrabalheConoscoPage() {
 
           <div className="mt-8 grid grid-cols-2 gap-3.5 sm:mt-10 sm:grid-cols-4 sm:gap-4">
             {[
-              "Colaboradores na unidade",
-              "Consultor em campo",
-              "Equipe do balcão",
-              "Time reunido",
-            ].map((legenda) => (
-              <div key={legenda} className="h-[150px] sm:h-[220px]">
-                <PendenteFoto legenda={legenda} />
+              ["time-1", "Colaboradora da Semear sorrindo na entrada da loja"],
+              ["time-2", "Colaboradora da Semear sorrindo dentro da unidade"],
+              ["time-3", "Colaborador da Semear sorrindo no balcão"],
+              ["time-4", "Colaborador da Semear diante das prateleiras de produtos"],
+            ].map(([arquivo, alt]) => (
+              <div key={arquivo} className="h-[150px] sm:h-[220px]">
+                <Foto
+                  src={`/fotos/${arquivo}.jpg`}
+                  alt={alt}
+                  sizes="(min-width: 640px) 25vw, 50vw"
+                  foco="50% 25%"
+                />
               </div>
             ))}
           </div>

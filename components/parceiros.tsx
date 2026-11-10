@@ -1,13 +1,14 @@
 import parceiros from "@/content/parceiros.json";
-import { PendenteFoto } from "./pendente-foto";
+import Image from "next/image";
 
 /**
  * Parceiros estratégicos (devolutiva, item 2.7 — substitui o antigo bloco
  * "Credenciais"). Grade estática de propósito: o §5 do CLAUDE.md proíbe
  * carrossel de logos rolando infinitamente.
  *
- * Os logos ainda não existem no repo, então cada tile é um PendenteFoto —
- * pelo §6 não se inventa ativo de marca de terceiro.
+ * Logos entregues pelo marketing em 2026-11-10 (public/parceiros/). Fundo
+ * branco em todos, menos onde o JSON marca `fundoEscuro`: o logo da
+ * Biogénesis tem o nome em branco e some sobre fundo claro.
  */
 export function Parceiros({
   escuro = false,
@@ -41,10 +42,23 @@ export function Parceiros({
         fabricante. É o que garante receituário, procedência e reposição.
       </p>
 
-      <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4">
+      <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:grid-cols-4 lg:grid-cols-7 lg:gap-4">
         {parceiros.map((p) => (
-          <li key={p.slug} className="h-[104px] sm:h-[120px]">
-            <PendenteFoto legenda={`Logo ${p.nome}`} />
+          <li
+            key={p.slug}
+            className={`relative h-[104px] border sm:h-[120px] ${
+              "fundoEscuro" in p && p.fundoEscuro
+                ? "border-osso/30 bg-mata-fundo"
+                : "border-mata/15 bg-white"
+            }`}
+          >
+            <Image
+              src={`/parceiros/${p.slug}.png`}
+              alt={p.nome}
+              fill
+              sizes="(min-width: 1024px) 14vw, (min-width: 640px) 25vw, 50vw"
+              className="object-contain p-4 sm:p-5"
+            />
           </li>
         ))}
       </ul>

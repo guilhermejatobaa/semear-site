@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ConsultoriaForm } from "./consultoria-form";
 import { Revela } from "@/components/revela";
-import { PendenteFoto } from "@/components/pendente-foto";
+import { Foto } from "@/components/foto";
 
 export const metadata: Metadata = {
   title: "Falar com um consultor",
@@ -70,11 +70,19 @@ export default function ConsultoriaPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="h-[160px] sm:h-[210px]">
-            <PendenteFoto legenda="Consultor analisando folha" />
+          <div className="h-[220px] sm:h-[320px]">
+            <Foto
+              src="/fotos/consultor-milho.jpg"
+              alt="Consultor com a camisa da Semear segurando uma espiga de milho na lavoura"
+              sizes="(min-width: 640px) 50vw, 100vw"
+            />
           </div>
-          <div className="h-[160px] sm:h-[210px]">
-            <PendenteFoto legenda="Reunião na propriedade" />
+          <div className="h-[220px] sm:h-[320px]">
+            <Foto
+              src="/fotos/consultoria-solo.jpg"
+              alt="Consultores examinando o solo e as raízes do capim com as mãos"
+              sizes="(min-width: 640px) 50vw, 100vw"
+            />
           </div>
         </div>
       </div>

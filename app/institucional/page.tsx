@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Revela } from "@/components/revela";
 import { Pendente } from "@/components/pendente";
-import { PendenteFoto } from "@/components/pendente-foto";
 import { Parceiros } from "@/components/parceiros";
 import { Instagram } from "@/components/instagram";
 import { VideoInstitucional } from "@/components/video-institucional";
 import unidades from "@/content/unidades.json";
+import { Foto } from "@/components/foto";
 
 export const metadata: Metadata = {
   title: "Institucional",
@@ -43,10 +43,13 @@ export default function InstitucionalPage() {
   return (
     <>
       <div className="relative h-[320px] sm:h-[460px]">
-        <PendenteFoto
-          legenda="Foto larga: fachada da loja matriz (Maceió)"
+        <Foto
+          src="/fotos/fachada-matriz.jpg"
+          alt="Fachada da loja matriz da Semear Agronegócios em Maceió, distribuidor autorizado Bayer"
+          sizes="100vw"
+          foco="50% 42%"
+          prioridade
           className="absolute inset-0"
-          posicao="topo"
         />
         <div
           className="pointer-events-none absolute inset-0 flex items-end p-6 sm:p-12"
@@ -82,9 +85,14 @@ export default function InstitucionalPage() {
           </p>
           <p className="mt-4 text-[16px]/[1.7] text-grafite sm:text-[17px]">
             Hoje são nove unidades próprias, com loja em sete estados e
-            consultoria atendendo os nove estados do Nordeste, sete linhas de
-            insumo e uma equipe técnica que cobre cana, citros, pastagem e
-            pecuária, coco e fruticultura.
+            consultoria atendendo os nove estados do Nordeste, dez linhas de
+            insumo, aplicação por drone e uma equipe técnica que cobre cana,
+            milho, citros, pastagem e pecuária, hortaliças e frutas.
+          </p>
+          <p className="mt-4 text-[16px]/[1.7] text-grafite sm:text-[17px]">
+            A Semear também opera a Cultivar, sua segunda bandeira. A primeira
+            loja Cultivar abriu em 2010, em Itabaiana/SE, e hoje ela funciona
+            ao lado de várias unidades Semear.
           </p>
           <div className="mt-7">
             <Pendente>
@@ -172,16 +180,16 @@ export default function InstitucionalPage() {
         </div>
         <div className="mt-10 grid grid-cols-2 gap-3.5 sm:mt-[52px] sm:grid-cols-4 sm:gap-4">
           <div className="h-[150px] sm:h-[220px]">
-            <PendenteFoto legenda="Equipe técnica" />
+            <Foto src="/fotos/equipe-tecnica.jpg" alt="Consultor da Semear em campo, de chapéu, com serra ao fundo" sizes="(min-width: 640px) 25vw, 50vw" foco="50% 25%" />
           </div>
           <div className="h-[150px] sm:h-[220px]">
-            <PendenteFoto legenda="Balcão de atendimento" />
+            <Foto src="/fotos/balcao.jpg" alt="Colaborador da Semear sorrindo no balcão de atendimento" sizes="(min-width: 640px) 25vw, 50vw" foco="50% 30%" />
           </div>
           <div className="h-[150px] sm:h-[220px]">
-            <PendenteFoto legenda="Estoque" />
+            <Foto src="/fotos/time-4.jpg" alt="Colaborador da Semear diante das prateleiras de produtos da loja" sizes="(min-width: 640px) 25vw, 50vw" />
           </div>
           <div className="h-[150px] sm:h-[220px]">
-            <PendenteFoto legenda="Feira ou evento" />
+            <Foto src="/fotos/feira.jpg" alt="Estande da Semear e da Bayer em feira agropecuária, com milho em exposição" sizes="(min-width: 640px) 25vw, 50vw" foco="50% 35%" />
           </div>
         </div>
       </section>

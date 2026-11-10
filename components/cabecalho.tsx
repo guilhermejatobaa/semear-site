@@ -92,7 +92,7 @@ export function Cabecalho() {
                   ))}
                   <Link
                     href="/#culturas"
-                    className="flex items-center bg-cana px-4 py-3.5 font-display text-[13px] font-extrabold tracking-[.12em] text-mata"
+                    className="col-span-2 flex items-center bg-cana px-4 py-3.5 font-display text-[13px] font-extrabold tracking-[.12em] text-mata"
                   >
                     Ver todas as linhas →
                   </Link>

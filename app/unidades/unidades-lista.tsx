@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import unidades from "@/content/unidades.json";
-import { Pendente } from "@/components/pendente";
 import { Mapa } from "@/components/mapa-cobertura/mapa";
 
 const WHATSAPP_COMERCIAL = "558233281831";
@@ -106,11 +105,13 @@ export function UnidadesLista() {
           ))}
         </div>
 
-        <div className="mt-6">
-          <Pendente>
-            Horário de funcionamento e telefone fixo por unidade
-          </Pendente>
-        </div>
+        <p className="mt-6 border-t border-mata/16 pt-5 text-[15px]/relaxed text-grafite">
+          <span className="font-display text-[11px] font-extrabold tracking-[.18em] uppercase">
+            Horário de funcionamento
+          </span>
+          <br />
+          Todas as unidades: segunda a sexta, das 7h30 às 17h20.
+        </p>
       </div>
 
       <div className="px-4 pb-10 sm:sticky sm:top-0 sm:px-12 sm:py-14">

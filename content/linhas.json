@@ -5,5 +5,9 @@
   { "slug": "fungicidas", "nome": "Fungicidas" },
   { "slug": "inseticidas", "nome": "Inseticidas" },
   { "slug": "medicamentos-veterinarios", "nome": "Medicamentos veterinários" },
-  { "slug": "ferramentas-utensilios", "nome": "Ferramentas e utensílios" }
+  { "slug": "ferramentas-utensilios", "nome": "Ferramentas e utensílios" },
+  { "slug": "biologicos", "nome": "Biológicos" },
+  { "slug": "nutricao-animal", "nome": "Nutrição animal" },
+  { "slug": "reproducao-manejo-animal", "nome": "Reprodução e manejo animal" },
+  { "slug": "aplicacao-drone", "nome": "Aplicação por drone", "servico": true }
 ]

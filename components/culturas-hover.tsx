@@ -1,7 +1,7 @@
 "use client";
 
 import culturas from "@/content/culturas.json";
-import { PendenteFoto } from "./pendente-foto";
+import { Foto } from "./foto";
 
 export function CulturasHover() {
   return (
@@ -11,10 +11,11 @@ export function CulturasHover() {
           key={c.slug}
           className="group relative h-[220px] overflow-hidden border border-osso/14 transition-[flex-grow] duration-500 ease-[cubic-bezier(.22,.9,.28,1)] sm:h-auto sm:flex-1 sm:hover:flex-[2.4]"
         >
-          <PendenteFoto
-            legenda={`Foto: ${c.nome.toLowerCase()}`}
+          <Foto
+            src={`/fotos/cultura-${c.slug}.jpg`}
+            alt={c.alt}
+            sizes="(min-width: 640px) 40vw, 100vw"
             className="absolute inset-0"
-            posicao="topo"
           />
           <div
             className="pointer-events-none absolute inset-0 flex flex-col justify-end p-6"

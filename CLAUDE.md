@@ -2,6 +2,48 @@
 
 Brief do projeto. Leia antes de escrever qualquer código.
 
+**Atualização (2026-11-10) — fotos do marketing e preparação para o lançamento:** o marketing
+entregou as fotos (pasta do Drive, originais fora do repo). Decisões do Guilherme nesta rodada:
+
+- Fotos reais entraram no lugar dos `<PendenteFoto>` da home, `/institucional`, `/consultoria`
+  e `/trabalhe-conosco`, pelo componente `components/foto.tsx` (`next/image`, arquivos em
+  `public/fotos/`, todos abaixo de 200 KB). Autorização de imagem dos colaboradores: o
+  marketing já tem.
+- **Imagem de banco é aceita para foto de lavoura** (cana, citros, hortaliças e frutas). A
+  regra da seção 6 continua valendo para gente: nada de banco posando como equipe.
+- **Culturas agora são cinco:** cana, milho, citros, pastagem e pecuária, e **hortaliças e
+  frutas (HFF)**, que substituiu coco e fruticultura (`content/culturas.json`, formulário e
+  texto da institucional).
+- **Parceiros agora são sete:** a Dekalb entrou. Logos em `public/parceiros/`; o da Biogénesis
+  tem o nome em branco e por isso usa fundo escuro (`fundoEscuro` no JSON).
+- Não veio foto de estoque: o quadro "Estoque" da institucional usa um colaborador diante das
+  prateleiras da loja. Fotos de depoimento seguem pendentes.
+
+- **O formulário de consultoria entrega no WhatsApp comercial** (+55 82 3328-1831): monta a
+  mensagem com os campos e abre a conversa já escrita. Isso supera a seção 8 (envio via
+  Resend); o route handler `/api/consultoria` ficou sem uso.
+- **Horário das unidades:** segunda a sexta, das 7h30 às 17h20, igual para todas
+  (`/unidades`).
+
+Onde as seções abaixo ainda falam em seis culturas, seis parceiros ou logos pendentes, vale
+esta nota.
+
+**Atualização (2026-09-23) — conferência com o banco do Siagri:** o conteúdo do site foi
+conferido contra o ERP (lojas, linhas e culturas que de fato vendem), a partir do BI de vendas
+em `~/Desktop/bi-semear`. O Guilherme aprovou as mudanças abaixo, marcadas nas seções 2, 4, 7
+e 8 com a etiqueta *(banco 2026-09-23)*:
+
+- Imperatriz abre em **12/2015** (data de fundação no cadastro de empresas), não em 2017.
+- **Milho** entrou nas culturas: 19% do faturamento de 2025 e 23% de 2026. É a segunda cultura
+  em venda, atrás da cana.
+- **Quatro linhas novas:** biológicos, nutrição animal, reprodução e manejo animal, e o serviço
+  de aplicação por drone. O contador de linhas de insumo passou a ser calculado do
+  `content/linhas.json` e mostra **10** (o drone é serviço e fica fora da contagem).
+- A **Cultivar**, segunda bandeira da empresa, passou a ser citada na `/institucional`.
+
+Os fatos de banco vêm de documentos fora deste repo: `~/Downloads/contexto-vendas.md` e a
+seção 10 de `~/Downloads/contexto-banco-semear.md`.
+
 **Atualização (2026-09-14) — devolutiva do marketing:** o marketing entregou a
 `DEVOLUTIVA MARKETING.pdf` com pedidos de estrutura, conteúdo e funcionalidade. Foi
 implementada integralmente. Os pontos em que ela **supera** este documento estão marcados
@@ -91,9 +133,32 @@ Ver seção 4 para o efeito disso no mapa e na faixa de números.
 | Rio Real | Rio Real/BA — R. Joaquim Mattos, 69 |
 
 **Linhas atendidas:** sementes, fertilizantes, herbicidas, fungicidas, inseticidas,
-medicamentos veterinários, ferramentas e utensílios.
+medicamentos veterinários, ferramentas e utensílios, biológicos, nutrição animal, reprodução e
+manejo animal, e o serviço de aplicação por drone. *(banco 2026-09-23)* As quatro últimas
+entraram porque vendem de verdade: no banco elas são os grupos Biológicos (bioativadores,
+inoculantes, biodefensivos), Nutrição Animal (sal mineral e rações), Pecuária (hormônios de
+reprodução, brincos, aplicadores) e Serviços. Os defensivos, que o site divide em herbicidas,
+fungicidas e inseticidas, são 71% do faturamento de 2025.
 
-**Culturas e criações relevantes:** cana, citros, pastagem e pecuária, coco, fruticultura.
+**Culturas e criações relevantes:** cana, milho, citros, pastagem e pecuária, coco,
+fruticultura. *(banco 2026-09-23)* Participação no faturamento de 2025: cana 49%, milho 19%,
+pastagem 18%, citros 2,7%, coco 0,3%. O milho se concentra em Itabaiana e Arapiraca.
+
+**Cultivar — a segunda bandeira (banco 2026-09-23).** A empresa opera duas bandeiras,
+Semear e Cultivar. A primeira loja Cultivar abriu em 2010 em Itabaiana/SE, e hoje há loja
+Cultivar cadastrada nas nove cidades das unidades; em seis delas, no mesmo endereço da Semear
+ou ao lado. A Cultivar foi 22% do faturamento de 01/2025 a 09/2026. As nove unidades do site
+são as lojas Semear. A `/institucional` cita a Cultivar em um parágrafo da história; o resto
+do site continua falando só da Semear.
+
+A frase da `/institucional` diz "ao lado de várias unidades Semear", e não "em todas as
+cidades", de propósito: as lojas Cultivar de Rio Real, Paripiranga e Limoeiro não emitem nota
+de venda desde maio/junho de 2026. Confirmar com o Guilherme se fecharam antes de afirmar mais.
+
+**Dados de unidade conferidos no banco (banco 2026-09-23).** As datas de abertura batem com o
+cadastro de empresas (`CADEMP`), exceto Imperatriz, corrigida para 12/2015. Duas diferenças
+seguem abertas: o banco registra Mossoró como "S/N" (o site usa o nº 1021), e o banco não tem
+o telefone de Paripiranga (só o da matriz), então a pendência continua.
 
 **Credenciais reais:** selo de excelência do CRMV-AL; parceria com Bayer; presença em
 Citros Show e Expoimp.
@@ -196,7 +261,8 @@ Consequências no código, todas deliberadas:
   daí "todo o Nordeste atendido" na barra de topo e no Open Graph, que é uma afirmação mais
   forte e igualmente verificável.
 - O contador da home é **9 estados atendidos**, não 7. A faixa passou a ser
-  9 unidades · 9 estados · 7 linhas · 19 anos.
+  9 unidades · 9 estados · 7 linhas · 19 anos. *(banco 2026-09-23)* Agora 9 · 9 · 10 · 19: o
+  contador de linhas é calculado de `content/linhas.json`, sem os serviços.
 - Onde o texto fala de **loja**, "sete estados" continua correto e foi mantido
   (`/unidades`, parágrafo de história da institucional).
 
@@ -267,7 +333,7 @@ de fade em tudo. `prefers-reduced-motion` respeitado.
 
 **Contador animado — exceção deliberada e aprovada pelo cliente (2026-08-13):** a seção 5
 lista "contador animado" como anti-padrão. O Guilherme pediu explicitamente os contadores da
-faixa de números (9 unidades · 9 estados · 7 linhas · 19 anos) com rampa `easeOutCubic` ao
+faixa de números (9 unidades · 9 estados · 10 linhas · 19 anos) com rampa `easeOutCubic` ao
 entrar na tela — ver `components/contador.tsx`. A condição que preserva o espírito do
 anti-padrão original: **os números são sempre reais e verificáveis**, nunca uma métrica
 inflada tipo "3.000+ clientes". Se o marketing reverter essa decisão, basta renderizar o
@@ -285,7 +351,7 @@ então a mudança é só remover a rampa visual).
   unidades, culturas — está OK; o clichê é o ícone-em-círculo, não o card)
 - Seção de "números" com contador animado inflado (3.000+ clientes etc.) — **contador em si
   não é mais proibido**, ver exceção aprovada na seção 4 (Movimento): os números da faixa
-  9/9/7/19 são reais e verificáveis, o anti-padrão é a métrica chutada, não a animação
+  9/9/10/19 são reais e verificáveis, o anti-padrão é a métrica chutada, não a animação
 - Texto de marketing vazio: "soluções inovadoras", "excelência", "compromisso com o campo"
 - Carrossel de logos de parceiros rolando infinitamente — **a seção de parceiros existe**
   desde a devolutiva 2026-09-14 (`components/parceiros.tsx`), mas em grade estática; o
@@ -399,8 +465,9 @@ content/
   parceiros.json                       os seis parceiros estratégicos (devolutiva 2.7)
   depoimentos.json                     depoimentos de clientes — vazio, a coletar (devolutiva 1.2)
   externos.json                        links de terceiros (redes, Instagram, YouTube) e e-mail de currículos
-  linhas.json                          as sete linhas de produto
-  culturas.json                        as cinco culturas/criações + linhas atendidas (mega-menu, hover)
+  linhas.json                          as linhas de produto: dez de insumo + aplicação por drone
+                                        (`"servico": true`, fora do contador da home)
+  culturas.json                        as seis culturas/criações + linhas atendidas (mega-menu, hover)
 public/logo/                           logo oficial extraída de brand-source/SEMEAR-LOGO-APROVADO.pdf
                                         (semear-color.svg para fundo claro, semear-branco.svg para --mata)
 public/mapa/countries-110m.json        TopoJSON do world-atlas@2.0.2, vendorizado (não busca de CDN)
@@ -426,7 +493,8 @@ Campos:
 - Município — texto livre
 - Área em hectares — texto livre (`Ex.: 40`); a versão anterior deste documento pedia faixas
   em vez de campo numérico livre, o pacote de design substituiu por texto livre
-- Cultura ou criação — grupo de botões: cana, citros, pastagem/pecuária, coco, fruticultura
+- Cultura ou criação — grupo de botões: cana, milho, citros, pastagem/pecuária, coco,
+  fruticultura (milho incluído em 2026-09-23)
 
 Removidos em relação à hipótese original: época prevista de manejo, observação livre. Não
 estavam no pacote de design; reavaliar com o comercial se fizerem falta.
