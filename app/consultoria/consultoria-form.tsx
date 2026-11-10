@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Pendente } from "@/components/pendente";
 
 const WHATSAPP_COMERCIAL = "558233281831";
 
-const CULTURAS = ["Cana", "Citros", "Pastagem/pecuária", "Coco", "Fruticultura"] as const;
+const CULTURAS = ["Cana", "Milho", "Citros", "Pastagem/pecuária", "Hortaliças e frutas"] as const;
 
 type DadosFormulario = {
   nome: string;
@@ -23,12 +22,30 @@ const DADOS_INICIAIS: DadosFormulario = {
   cultura: "Cana",
 };
 
-type StatusEnvio = "ocioso" | "enviando" | "sucesso" | "erro";
+type StatusEnvio = "ocioso" | "sucesso";
+
+/**
+ * O formulário entrega a solicitação no WhatsApp comercial (decisão do
+ * Guilherme, 2026-11-10): monta a mensagem com os campos e abre a conversa
+ * já escrita. O produtor só toca em enviar. Não depende de servidor nem de
+ * e-mail; o route handler /api/consultoria (Resend) ficou sem uso.
+ */
+function linkWhatsapp(d: DadosFormulario) {
+  const linhas = [
+    "Olá! Quero falar com um consultor da Semear.",
+    "",
+    `Nome: ${d.nome.trim()}`,
+    `WhatsApp: ${d.whatsapp.trim()}`,
+    `Município: ${d.municipio.trim() || "não informado"}`,
+    `Área (ha): ${d.area.trim() || "não informado"}`,
+    `Cultura ou criação: ${d.cultura}`,
+  ];
+  return `https://wa.me/${WHATSAPP_COMERCIAL}?text=${encodeURIComponent(linhas.join("\n"))}`;
+}
 
 export function ConsultoriaForm() {
   const [dados, setDados] = useState<DadosFormulario>(DADOS_INICIAIS);
   const [status, setStatus] = useState<StatusEnvio>("ocioso");
-  const [erro, setErro] = useState<string | null>(null);
 
   const podeEnviar =
     dados.nome.trim().length > 2 && dados.whatsapp.replace(/\D/g, "").length >= 10;
@@ -37,43 +54,32 @@ export function ConsultoriaForm() {
     setDados((d) => ({ ...d, [campo]: valor }));
   }
 
-  async function enviar(e: FormEvent) {
+  function enviar(e: FormEvent) {
     e.preventDefault();
     if (!podeEnviar) return;
-    setErro(null);
-    setStatus("enviando");
-    try {
-      const resposta = await fetch("/api/consultoria", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
-      });
-      if (!resposta.ok) throw new Error("Falha no envio");
-      setStatus("sucesso");
-    } catch {
-      setStatus("erro");
-      setErro(
-        `Não conseguimos registrar agora. Confira sua conexão e tente de novo, ou chame direto no WhatsApp (82) 3328-1831.`
-      );
-    }
+    // Aberto dentro do próprio clique, senão o navegador bloqueia como pop-up.
+    window.open(linkWhatsapp(dados), "_blank", "noopener,noreferrer");
+    setStatus("sucesso");
   }
 
   if (status === "sucesso") {
     return (
       <div className="border-2 border-mata bg-white p-9">
         <p className="inline-block bg-cana px-3 py-1.5 font-display text-[11px] font-extrabold tracking-[.18em] text-mata uppercase">
-          Solicitação registrada
+          Falta só enviar
         </p>
         <h2 className="mt-5 font-display text-[40px]/[1] font-extrabold tracking-[-.035em]">
           Obrigado, {dados.nome.split(" ")[0]}.
         </h2>
         <p className="mt-3.5 text-[17px]/relaxed text-grafite">
-          Um consultor da unidade mais próxima entra em contato pelo WhatsApp{" "}
-          <strong>{dados.whatsapp}</strong> em até um dia útil. Se preferir
-          adiantar, chame agora:
+          Abrimos o WhatsApp da Semear com a sua solicitação já escrita. Toque
+          em enviar na conversa e um consultor responde por lá. Se o WhatsApp
+          não abriu, use o botão:
         </p>
         <a
-          href={`https://wa.me/${WHATSAPP_COMERCIAL}`}
+          href={linkWhatsapp(dados)}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-5 inline-block bg-cana px-[26px] py-[17px] font-display text-[13px] font-extrabold tracking-[.14em] text-mata uppercase"
         >
           Abrir WhatsApp
@@ -194,37 +200,28 @@ export function ConsultoriaForm() {
           </div>
         </div>
 
-        {status === "erro" && erro && (
-          <p role="alert" className="border border-mata bg-dourado/10 px-4 py-3 text-[14px] text-mata">
-            {erro}
-          </p>
-        )}
-
         <button
           type="submit"
-          disabled={!podeEnviar || status === "enviando"}
+          disabled={!podeEnviar}
           className="mt-1.5 py-5 font-display text-[14px] font-extrabold tracking-[.14em] text-osso uppercase disabled:cursor-not-allowed"
           style={{ background: podeEnviar ? "var(--mata)" : "rgba(11,61,36,.35)" }}
         >
-          {status === "enviando" ? "Enviando..." : "Quero falar com um consultor"}
+          Quero falar com um consultor
         </button>
         <p className="text-[13px]/relaxed text-grafite">
-          Usamos seus dados só para este contato comercial.
+          O botão abre o WhatsApp da Semear com estes dados já preenchidos.
+          Usamos só para este contato comercial.
         </p>
       </form>
 
       <div className="mt-9 border-t border-mata/16 pt-6">
         <p className="font-display text-[11px] font-extrabold tracking-[.18em] text-grafite uppercase">
-          Prefere ligar?
+          Prefere chamar direto?
         </p>
         <p className="mt-2.5 font-display text-[30px] font-extrabold tracking-[-.02em]">
           <a href={`https://wa.me/${WHATSAPP_COMERCIAL}`}>(82) 3328-1831</a>
         </p>
-        <div className="mt-4">
-          <Pendente>
-            Para onde o formulário envia (e-mail, CRM ou WhatsApp da unidade)
-          </Pendente>
-        </div>
+        <p className="mt-1.5 text-[13px] text-grafite">WhatsApp comercial</p>
       </div>
     </div>
   );

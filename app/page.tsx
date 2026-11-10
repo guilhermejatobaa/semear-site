@@ -2,11 +2,16 @@ import Link from "next/link";
 import { BuscaCobertura } from "@/components/mapa-cobertura/busca-cobertura";
 import { TrilhaUnidades } from "@/components/mapa-cobertura/trilha-unidades";
 import { CulturasHover } from "@/components/culturas-hover";
+import { Depoimentos } from "@/components/depoimentos";
+import { Parceiros } from "@/components/parceiros";
 import { Contador } from "@/components/contador";
 import { Revela } from "@/components/revela";
-import { Pendente } from "@/components/pendente";
-import { PendenteFoto } from "@/components/pendente-foto";
 import { BarraFixaMobile } from "@/components/barra-fixa-mobile";
+import linhas from "@/content/linhas.json";
+import { Foto } from "@/components/foto";
+
+// Linhas de insumo = linhas.json sem os servicos (aplicacao por drone).
+const LINHAS_INSUMO = linhas.filter((l) => !("servico" in l && l.servico)).length;
 
 const ETAPAS = [
   {
@@ -17,7 +22,7 @@ const ETAPAS = [
   {
     n: "02",
     t: "O consultor liga",
-    d: "Cultura, área e época de manejo — antes de qualquer cotação.",
+    d: "Cultura, área e época de manejo, antes de qualquer cotação.",
   },
   {
     n: "03",
@@ -41,10 +46,10 @@ export default function Home() {
           <Contador ate={9} rotulo="Unidades próprias" />
         </div>
         <div className="border-r-0 px-6 py-9 sm:border-r sm:border-mata/25 sm:px-10">
-          <Contador ate={7} rotulo="Estados atendidos" />
+          <Contador ate={9} rotulo="Estados atendidos" />
         </div>
         <div className="border-t border-r border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
-          <Contador ate={7} rotulo="Linhas de insumo" />
+          <Contador ate={LINHAS_INSUMO} rotulo="Linhas de insumo" />
         </div>
         <div className="border-t border-mata/25 px-6 py-9 sm:border-t-0 sm:px-10">
           <Contador ate={19} rotulo="Anos de operação" />
@@ -100,10 +105,12 @@ export default function Home() {
       </section>
 
       <div className="relative h-[300px] sm:h-[520px]">
-        <PendenteFoto
-          legenda="Foto larga: consultor técnico com produtor na propriedade"
+        <Foto
+          src="/fotos/consultoria-pastagem.jpg"
+          alt="Dois consultores da Semear agachados no pasto, examinando o capim"
+          sizes="100vw"
+          foco="50% 12%"
           className="absolute inset-0"
-          posicao="topo"
         />
         <div
           className="pointer-events-none absolute inset-0 flex items-end p-6 sm:p-12"
@@ -117,7 +124,7 @@ export default function Home() {
               O consultor não manda cotação. Ele vai até lá.
             </h2>
             <p className="mt-3 max-w-[52ch] text-[15px]/relaxed text-osso/80 sm:mt-4 sm:text-[17px]">
-              Manejo acompanhado safra a safra, com a mesma pessoa — do
+              Manejo acompanhado safra a safra, com a mesma pessoa, do
               plantio ao resultado.
             </p>
           </div>
@@ -139,7 +146,7 @@ export default function Home() {
               href="#culturas"
               className="shrink-0 border-b-2 border-cana pb-1 font-display text-[12px] font-extrabold tracking-[.16em] text-cana uppercase"
             >
-              Sete linhas de insumo →
+              Dez linhas de insumo →
             </a>
           </div>
           <div className="mt-10 sm:mt-11">
@@ -148,54 +155,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-osso px-4 py-14 sm:px-12 sm:py-[76px]">
-        <div className="mx-auto grid max-w-[1680px] grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-16">
-          <div>
-            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
-              Credenciais
-            </p>
-            <ul className="mt-6 divide-y divide-mata/14 border-t-2 border-mata">
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Selo de excelência do CRMV-AL
-              </li>
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Parceria com a Bayer
-              </li>
-              <li className="flex items-baseline gap-4 py-5 text-[17px]/none font-semibold sm:text-[19px]">
-                <span className="h-2 w-2 shrink-0 bg-cana" />
-                Presença na Citros Show e na Expoimp
-              </li>
-            </ul>
-            <div className="mt-6">
-              <Pendente>
-                Logos dos parceiros em vetor + autorização de uso
-              </Pendente>
-            </div>
-          </div>
-          <div>
-            <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
-              Quem compra da Semear
-            </p>
-            <div className="mt-6 border border-dashed border-dourado bg-dourado/10 p-6">
-              <Pendente>
-                Três depoimentos com nome, município, cultura e foto — a
-                coletar com o comercial
-              </Pendente>
-              <p className="mt-4 text-[14px]/relaxed text-grafite">
-                É o bloco que mais pesa na comparação com a concorrência:
-                nenhuma distribuidora da região mostra produtor com nome e
-                cultura. Vale gravar em vídeo na próxima visita.
-              </p>
-            </div>
-            <div className="mt-5 border border-dashed border-dourado bg-dourado/10 p-6">
-              <Pendente>
-                Notícias e galeria de eventos (Citros Show, Expoimp) —
-                definir se entra no MVP
-              </Pendente>
-            </div>
-          </div>
+      <Depoimentos />
+
+      <section className="bg-mata px-4 py-14 sm:px-12 sm:py-20">
+        <div className="mx-auto max-w-[1680px]">
+          <Parceiros escuro />
         </div>
       </section>
 
@@ -225,7 +189,13 @@ export default function Home() {
           </div>
         </div>
         <div className="relative min-h-[260px] sm:min-h-[340px]">
-          <PendenteFoto legenda="Foto: equipe Semear na unidade" className="absolute inset-0" />
+          <Foto
+            src="/fotos/equipe-unidade.jpg"
+            alt="Dois colaboradores da Semear sentados à mesa dentro da loja"
+            sizes="(min-width: 640px) 50vw, 100vw"
+            foco="50% 30%"
+            className="absolute inset-0"
+          />
         </div>
       </section>
 

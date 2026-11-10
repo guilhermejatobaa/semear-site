@@ -19,7 +19,7 @@ export function Cabecalho() {
     <>
       {naHome && (
         <div className="hidden items-center justify-between gap-6 bg-dourado px-12 py-[9px] text-[12px] font-bold tracking-[.12em] text-mata uppercase sm:flex">
-          <span>Nove unidades próprias · sete estados do Nordeste · desde 2007</span>
+          <span>Nove unidades próprias · todo o Nordeste atendido · desde 2007</span>
           <a
             href={`https://wa.me/${WHATSAPP_COMERCIAL}`}
             className="border-b border-mata/45 text-mata no-underline"
@@ -52,14 +52,28 @@ export function Cabecalho() {
               Institucional
             </Link>
 
+            {/* "Atuação" precisa ser um link de verdade (devolutiva, item 3):
+                como <span> com menu só no hover, o item era inalcançável em
+                touch e por teclado. onFocus/onBlur abrem o mesmo menu para
+                quem navega com Tab. */}
             <div
               className="relative"
               onMouseEnter={() => setMenuAberto(true)}
               onMouseLeave={() => setMenuAberto(false)}
+              onFocus={() => setMenuAberto(true)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                  setMenuAberto(false);
+                }
+              }}
             >
-              <span className="cursor-pointer border-b-2 border-transparent pb-[3px] hover:border-cana">
+              <Link
+                href="/#culturas"
+                aria-expanded={menuAberto}
+                className="inline-block border-b-2 border-transparent pb-[3px] hover:border-cana"
+              >
                 Atuação ▾
-              </span>
+              </Link>
               {menuAberto && (
                 <div className="absolute top-[34px] left-[-24px] grid w-[520px] grid-cols-2 gap-[2px] border border-cana/35 bg-mata p-2">
                   {culturas.map((c) => (
@@ -78,7 +92,7 @@ export function Cabecalho() {
                   ))}
                   <Link
                     href="/#culturas"
-                    className="flex items-center bg-cana px-4 py-3.5 font-display text-[13px] font-extrabold tracking-[.12em] text-mata"
+                    className="col-span-2 flex items-center bg-cana px-4 py-3.5 font-display text-[13px] font-extrabold tracking-[.12em] text-mata"
                   >
                     Ver todas as linhas →
                   </Link>

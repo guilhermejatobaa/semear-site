@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import unidades from "@/content/unidades.json";
 import linhas from "@/content/linhas.json";
+import { RedesSociais } from "./redes-sociais";
 
 const WHATSAPP_COMERCIAL = "558233281831";
 
@@ -26,6 +27,9 @@ export function Rodape() {
               (82) 3328-1831
             </a>
           </p>
+          <div className="mt-6">
+            <RedesSociais />
+          </div>
         </div>
 
         <div>
@@ -36,7 +40,7 @@ export function Rodape() {
             {unidades.map((u) => (
               <li key={u.slug}>
                 <Link href="/unidades" className="text-[14px] text-osso/70">
-                  {u.nome} — {u.cidade}/{u.uf}
+                  {u.nome} · {u.cidade}/{u.uf}
                 </Link>
               </li>
             ))}
@@ -78,10 +82,40 @@ export function Rodape() {
                 Trabalhe conosco
               </Link>
             </li>
+            <li>
+              <Link href="/privacidade" className="text-[14px] text-osso/70">
+                Política de privacidade
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
-      <p className="mx-auto mt-11 max-w-[1680px] border-t border-osso/12 pt-5 text-[12px] tracking-[.08em] text-osso/45">
+      <div className="mx-auto mt-11 max-w-[1680px] border-t border-osso/12 pt-8">
+        <p className="font-display text-[11px] font-extrabold tracking-[.2em] text-dourado uppercase">
+          Comercialização de defensivos agrícolas
+        </p>
+        <div className="mt-4 grid grid-cols-1 gap-4 text-[13.5px]/relaxed text-osso/58 sm:grid-cols-3 sm:gap-8">
+          <p>
+            Na Semear, a comercialização de defensivos agrícolas é realizada
+            mediante receituário agronômico e destinada exclusivamente a
+            produtores rurais cadastrados.
+          </p>
+          <p>
+            Nosso compromisso vai além da entrega do produto: oferecemos
+            consultoria técnica para orientar o produtor em decisões mais
+            seguras e eficientes no campo. A utilização dos produtos deve
+            seguir rigorosamente as recomendações do rótulo e da bula, sempre
+            com orientação profissional.
+          </p>
+          <p>
+            Também fazemos nossa parte na preservação do meio ambiente. A
+            Semear segue as normas de logística reversa e orienta sobre a
+            devolução e a destinação correta das embalagens vazias, conforme as
+            diretrizes do INPEV.
+          </p>
+        </div>
+      </div>
+      <p className="mx-auto mt-8 max-w-[1680px] border-t border-osso/12 pt-5 text-[12px] tracking-[.08em] text-osso/45">
         © 2026 Semear Agronegócios · Maceió/AL
       </p>
     </footer>

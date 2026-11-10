@@ -5,6 +5,7 @@ import unidades from "@/content/unidades.json";
 import { unidadeMaisProxima } from "@/lib/distancia";
 import { normalizar } from "@/lib/normalizar";
 import { Mapa } from "./mapa";
+import { TEMAS } from "./temas";
 
 const WHATSAPP_COMERCIAL = "558233281831";
 
@@ -111,7 +112,7 @@ export function BuscaCobertura() {
       </h1>
       <p className="mt-4 max-w-[38ch] text-[16px]/relaxed text-osso/82 sm:mt-6 sm:text-[19px]/relaxed">
         Nove unidades próprias e consultor técnico que entra na área. Diga o
-        município e o site diz quem atende você — com distância e WhatsApp
+        município e o site diz quem atende você, com distância e WhatsApp
         direto.
       </p>
       <p className="mt-3 text-[13px] font-medium tracking-[.06em] text-osso/55 sm:mt-3.5 sm:text-[14px]">
@@ -169,7 +170,7 @@ export function BuscaCobertura() {
                 {resultado.unidade.nome}
               </p>
               <p className="mt-2.5 text-[14px]/relaxed text-grafite sm:text-[15px]">
-                {resultado.unidade.cidade}/{resultado.unidade.uf} —{" "}
+                {resultado.unidade.cidade}/{resultado.unidade.uf} ·{" "}
                 {resultado.unidade.endereco}
               </p>
               {resultado.distanciaKm > 0 && (
@@ -194,11 +195,14 @@ export function BuscaCobertura() {
 
   return (
     <section className="relative overflow-x-hidden bg-mata-fundo px-4 py-10 sm:h-[760px] sm:px-0 sm:py-0">
-      <div className="hidden sm:absolute sm:top-0 sm:right-[-40px] sm:block sm:h-full sm:w-[900px]">
+      {/* O mapa e o degradê se estendem 260px além do rodapé da seção (760px)
+          para continuarem visíveis atrás da lista de sugestões e do card de
+          resultado, que podem ultrapassar essa marca — ver CLAUDE.md. */}
+      <div className="hidden sm:absolute sm:top-0 sm:right-[-40px] sm:bottom-[-260px] sm:block sm:w-[900px]">
         <Mapa tema="ousado" mostrarUf={false} selecionada={resultado?.unidade.slug ?? null} onSelecionar={selecionarUnidade} />
       </div>
       <div
-        className="pointer-events-none absolute inset-0 hidden sm:block"
+        className="pointer-events-none absolute inset-x-0 top-0 hidden sm:bottom-[-260px] sm:block"
         style={{
           background:
             "linear-gradient(96deg, rgba(7,36,24,.97) 0%, rgba(7,36,24,.93) 38%, rgba(7,36,24,.15) 66%, rgba(7,36,24,.5) 100%)",
@@ -210,6 +214,33 @@ export function BuscaCobertura() {
       <div className="mt-6 h-[360px] border border-cana/30 sm:hidden">
         <Mapa tema="ousado" mostrarUf={false} selecionada={resultado?.unidade.slug ?? null} onSelecionar={selecionarUnidade} />
       </div>
+      {/* Legenda. O preenchimento é uniforme — a Semear atende os nove
+          estados do Nordeste —, então o que a legenda precisa explicar é o
+          ponto, não a cor do estado. */}
+      <ul className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 sm:absolute sm:bottom-[34px] sm:left-12 sm:mt-0 sm:justify-start">
+        <li className="flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className="h-3 w-3 shrink-0 border"
+            style={{ background: TEMAS.ousado.atuacao, borderColor: TEMAS.ousado.atuacaoTraco }}
+          />
+          <span className="text-[11px] font-medium tracking-[.12em] text-osso/62 uppercase sm:text-[12px]">
+            Nordeste atendido
+          </span>
+        </li>
+        <li className="flex items-center gap-2">
+          {/* SVG, não uma <span>: a regra global do globals.css zera
+              border-radius no site inteiro, então um círculo em CSS sairia
+              quadrado e não casaria com o ponto do mapa. */}
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" className="shrink-0">
+            <circle cx="6" cy="6" r="6" fill={TEMAS.ousado.ponto} />
+          </svg>
+          <span className="text-[11px] font-medium tracking-[.12em] text-osso/62 uppercase sm:text-[12px]">
+            Unidade própria
+          </span>
+        </li>
+      </ul>
+
       <p className="mt-2.5 text-center text-[11px] font-medium tracking-[.12em] text-osso/50 uppercase sm:absolute sm:right-12 sm:bottom-[34px] sm:mt-0 sm:text-[12px] sm:tracking-[.14em]">
         Toque ou clique num ponto do mapa
       </p>

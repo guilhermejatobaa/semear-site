@@ -1,7 +1,7 @@
 [
-  { "slug": "cana", "nome": "Cana", "linha": "Sementes · fertilizantes · herbicidas" },
-  { "slug": "citros", "nome": "Citros", "linha": "Fungicidas · inseticidas · nutrição" },
-  { "slug": "pecuaria", "nome": "Pastagem e pecuária", "linha": "Sementes de forrageira · veterinários" },
-  { "slug": "coco", "nome": "Coco", "linha": "Fertilizantes · manejo de pragas" },
-  { "slug": "fruticultura", "nome": "Fruticultura", "linha": "Nutrição · defensivos · ferramentas" }
+  { "slug": "cana", "nome": "Cana", "linha": "Sementes · fertilizantes · herbicidas", "alt": "Colmo de cana-de-açúcar em primeiro plano, com o canavial ao fundo" },
+  { "slug": "milho", "nome": "Milho", "linha": "Sementes · herbicidas · fertilizantes", "alt": "Espigas de milho maduras expostas na lavoura" },
+  { "slug": "citros", "nome": "Citros", "linha": "Fungicidas · inseticidas · nutrição", "alt": "Laranjas recém-colhidas com folhas" },
+  { "slug": "pecuaria", "nome": "Pastagem e pecuária", "linha": "Sementes de forrageira · veterinários", "alt": "Rebanho de gado nelore em pasto verde" },
+  { "slug": "hff", "nome": "Hortaliças e frutas", "linha": "Nutrição · defensivos · ferramentas", "alt": "Tomate, alface, melão e melancia" }
 ]

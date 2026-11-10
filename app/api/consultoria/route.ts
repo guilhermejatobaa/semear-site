@@ -51,7 +51,7 @@ export async function POST(request: Request) {
   const { error } = await resend.emails.send({
     from: REMETENTE,
     to: DESTINATARIO,
-    subject: `Falar com um consultor — ${nome}`,
+    subject: `Falar com um consultor: ${nome}`,
     text: [
       `Nome: ${nome}`,
       `WhatsApp: ${whatsapp}`,
