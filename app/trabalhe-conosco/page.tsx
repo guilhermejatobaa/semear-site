@@ -46,7 +46,7 @@ export default function TrabalheConoscoPage() {
       </section>
 
       {/* Cultura da empresa com foto dos colaboradores, pedido na devolutiva
-          (item 2.8). As fotos ainda não existem. */}
+          (item 2.8). Texto e valores definidos pelo Guilherme em 2026-11-10. */}
       <section className="bg-osso px-4 py-14 sm:px-12 sm:py-[72px]">
         <div className="mx-auto max-w-[1680px]">
           <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
@@ -58,26 +58,67 @@ export default function TrabalheConoscoPage() {
 
           <div className="mt-8 grid grid-cols-2 gap-3.5 sm:mt-10 sm:grid-cols-4 sm:gap-4">
             {[
-              ["time-1", "Colaboradora da Semear sorrindo na entrada da loja"],
-              ["time-2", "Colaboradora da Semear sorrindo dentro da unidade"],
-              ["time-3", "Colaborador da Semear sorrindo no balcão"],
-              ["time-4", "Colaborador da Semear diante das prateleiras de produtos"],
+              ["retrato-1", "Colaboradora da Semear sorrindo na entrada da loja"],
+              ["retrato-2", "Colaboradora da Semear sorrindo dentro da unidade"],
+              ["retrato-3", "Colaborador da Semear sorrindo no balcão"],
+              ["retrato-4", "Colaborador da Semear diante das prateleiras de produtos"],
             ].map(([arquivo, alt]) => (
-              <div key={arquivo} className="h-[150px] sm:h-[220px]">
+              <div key={arquivo} className="h-[250px] sm:h-[420px]">
                 <Foto
                   src={`/fotos/${arquivo}.jpg`}
                   alt={alt}
                   sizes="(min-width: 640px) 25vw, 50vw"
-                  foco="50% 25%"
+                  foco="50% 20%"
                 />
               </div>
             ))}
           </div>
 
-          <div className="mt-8 max-w-[62ch]">
-            <Pendente>
-              Texto sobre cultura da empresa e benefícios · a escrever com o RH
-            </Pendente>
+          <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-2 sm:gap-16">
+            <div className="max-w-[58ch] text-[16px]/[1.7] text-grafite sm:text-[17px]">
+              <h3 className="font-display text-[24px]/[1.1] font-extrabold tracking-[-.025em] text-mata sm:text-[30px]">
+                Aqui, quem trabalha vem primeiro
+              </h3>
+              <p className="mt-4">
+                A Semear cuida do produtor cuidando antes de quem o atende. É
+                a pessoa do balcão e o consultor no campo que fazem o cliente
+                voltar, então a prioridade da empresa começa dentro de casa:
+                gente respeitada, ouvida e com condição de fazer bem o seu
+                trabalho.
+              </p>
+              <p className="mt-4">
+                Isso vale igual nas nove unidades. Quem entra encontra uma
+                equipe que se conhece pelo nome, uma empresa que cumpre o que
+                combina e cinco valores que orientam as decisões do dia a dia.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-display text-[12px] font-extrabold tracking-[.24em] text-grafite uppercase">
+                Nossos valores
+              </p>
+              <ol className="mt-4 border-t border-mata/20">
+                {[
+                  "Fidelidade a Deus",
+                  "Conduta ética",
+                  "Respeito às pessoas",
+                  "Centralidade no cliente",
+                  "Solidez financeira",
+                ].map((valor, i) => (
+                  <li
+                    key={valor}
+                    className="flex items-baseline gap-5 border-b border-mata/20 py-4"
+                  >
+                    <span className="font-display text-[14px] font-extrabold text-grafite">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-display text-[20px] font-extrabold tracking-[-.02em] text-mata sm:text-[24px]">
+                      {valor}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </section>

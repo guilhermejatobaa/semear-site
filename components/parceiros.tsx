@@ -6,9 +6,9 @@ import Image from "next/image";
  * "Credenciais"). Grade estática de propósito: o §5 do CLAUDE.md proíbe
  * carrossel de logos rolando infinitamente.
  *
- * Logos entregues pelo marketing em 2026-11-10 (public/parceiros/). Fundo
- * branco em todos, menos onde o JSON marca `fundoEscuro`: o logo da
- * Biogénesis tem o nome em branco e some sobre fundo claro.
+ * Logos entregues pelo marketing em 2026-11-10 (public/parceiros/), todos
+ * sobre fundo branco. O da Biogénesis veio com o nome em branco; o arquivo
+ * do repo teve as letras recoloridas para preto, a pedido do Guilherme.
  */
 export function Parceiros({
   escuro = false,
@@ -46,11 +46,7 @@ export function Parceiros({
         {parceiros.map((p) => (
           <li
             key={p.slug}
-            className={`relative h-[104px] border sm:h-[120px] ${
-              "fundoEscuro" in p && p.fundoEscuro
-                ? "border-osso/30 bg-mata-fundo"
-                : "border-mata/15 bg-white"
-            }`}
+            className="relative h-[104px] border border-mata/15 bg-white sm:h-[120px]"
           >
             <Image
               src={`/parceiros/${p.slug}.png`}

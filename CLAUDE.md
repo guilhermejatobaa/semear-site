@@ -14,8 +14,13 @@ entregou as fotos (pasta do Drive, originais fora do repo). Decisões do Guilher
 - **Culturas agora são cinco:** cana, milho, citros, pastagem e pecuária, e **hortaliças e
   frutas (HFF)**, que substituiu coco e fruticultura (`content/culturas.json`, formulário e
   texto da institucional).
-- **Parceiros agora são sete:** a Dekalb entrou. Logos em `public/parceiros/`; o da Biogénesis
-  tem o nome em branco e por isso usa fundo escuro (`fundoEscuro` no JSON).
+- **Parceiros agora são sete:** a Dekalb entrou. Logos em `public/parceiros/`, todos sobre
+  fundo branco; o da Biogénesis teve as letras recoloridas de branco para preto.
+- **Valores oficiais da Semear, nesta ordem:** fidelidade a Deus, conduta ética, respeito às
+  pessoas, centralidade no cliente, solidez financeira. Estão em `/trabalhe-conosco`, junto do
+  texto de cultura (prioridade aos funcionários). A `/institucional` ainda lista três valores
+  antigos, a alinhar.
+- A `/consultoria` ficou sem fotos, a pedido do Guilherme.
 - Não veio foto de estoque: o quadro "Estoque" da institucional usa um colaborador diante das
   prateleiras da loja. Fotos de depoimento seguem pendentes.
 
